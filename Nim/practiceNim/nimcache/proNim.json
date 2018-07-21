@@ -1,0 +1,9 @@
+{"compile":[
+["/Users/cloudspider/Desktop/prapra/pracNim/nimcache/proNim.c", "clang -c  -w  -I/usr/local/Cellar/nim/0.17.2/nim/lib -o /Users/cloudspider/Desktop/prapra/pracNim/nimcache/proNim.o /Users/cloudspider/Desktop/prapra/pracNim/nimcache/proNim.c"],
+],
+"link":[
+"/Users/cloudspider/Desktop/prapra/pracNim/nimcache/proNim.o",
+"/Users/cloudspider/Desktop/prapra/pracNim/nimcache/stdlib_system.o"
+],
+"linkcmd": "clang   -o /Users/cloudspider/Desktop/prapra/pracNim/proNim  /Users/cloudspider/Desktop/prapra/pracNim/nimcache/proNim.o /Users/cloudspider/Desktop/prapra/pracNim/nimcache/stdlib_system.o    -ldl"
+}
