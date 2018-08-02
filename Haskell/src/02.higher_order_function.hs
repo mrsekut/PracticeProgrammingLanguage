@@ -33,6 +33,14 @@ numLongChains :: Int
 numLongChains = length (filter (\xs -> length xs >15) (map chain [1..100]))
 
 -- Convolution
--- 畳み込み関数は、(2引数関数),アキュムレータの初期値,リストを受け取る
+-- 畳み込み関数は、「2引数関数」,「アキュムレータ(畳み込みに用いる値)の初期値」,「リスト」を受け取る
+
+-- foldlという左畳み込みの関数を使ってsum'関数を実装し直す
 sum' :: (Num a) => [a] -> a
-sum' xs = foldl (\acc x -> acc + x) 0 xs
+-- sum' xs = foldl (\acc x -> acc + x) 0 xs
+sum' = foldl (+) 0
+
+-- 右畳み込み
+--- foldrを使う
+map' :: (a -> b) -> [a] -> [b]
+map' f xs = foldr (\x acc -> f x : acc) [] xs
