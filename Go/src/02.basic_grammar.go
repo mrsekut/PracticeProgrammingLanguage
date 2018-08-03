@@ -13,16 +13,25 @@ var GlobalVariable
 // type
 // ============================
 
-a := 10
-b := 12.3
-c := "hoge"
-var d bool
+a := 10 // int
+b := 12.3 // float
+c := "hoge" // string
+var d bool // boolean
 e := [...]int{1,3,5} // array
 f := []int{1,3,5} // slice
 
 fmt.Printf("a: %d, b: %f, c: %s, d: %t\n", a, b, c, d)
 fmt.Println(e)
 fmt.Println(f)
+
+// fmt.Printf
+fmt.Printf("10進数=%d, 2進数=%b, 8進数=%o, 16進数=%x\n", 17, 17, 17, 17)
+
+// "%v"なんでもあり
+fmt.Printf("10進数=%v, 2進数=%v, 8進数=%v, 16進数=%v\n", 17, 17, 17, 17)
+
+// "%T"はデータ型
+fmt.Printf("数値=%T, 文字列=%T, 配列=%T, スライス=%T\n", 17, "golang", [...]int{1, 2, 3}, []int{4, 5, 6})
 
 // iota
 const (

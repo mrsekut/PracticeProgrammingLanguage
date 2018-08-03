@@ -5,5 +5,8 @@ import (
 )
 
 func main() {
-	fmt.Println("hello worlld")
+
+	var b bool
+	fmt.Printf("b: %T\n", b)
+
 }
