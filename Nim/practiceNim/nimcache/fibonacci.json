@@ -1,8 +1,0 @@
-{"compile":[
-],
-"link":[
-"/Users/cloudspider/Desktop/pracNim/nimcache/fibonacci.o",
-"/Users/cloudspider/Desktop/pracNim/nimcache/stdlib_system.o"
-],
-"linkcmd": "clang   -o /Users/cloudspider/Desktop/pracNim/fibonacci  /Users/cloudspider/Desktop/pracNim/nimcache/fibonacci.o /Users/cloudspider/Desktop/pracNim/nimcache/stdlib_system.o    -ldl"
-}
