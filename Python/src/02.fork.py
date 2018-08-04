@@ -1,3 +1,4 @@
+# http://marumaru.tonkotsu.jp/python%E3%81%A7%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%82%92fork%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B
 import os
 import time
 
