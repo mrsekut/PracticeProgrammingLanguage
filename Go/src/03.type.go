@@ -34,16 +34,46 @@ fmt.Printf("i8: %T, i16: %T, i32: %T, i64: %T\n", i8, i16, i32, i64)
 i := 10
 fmt.Printf("i: %T", i)
 
-// float32
+// float 浮動小数点型
+f32 := float32(127)
+f64 := 127.0
+fmt.Printf("f32: %T, f64: %T\n", f32, f64)
 
-// float64
-f64 := 3.14
-fmt.Printf("f64: %T\n", f64)
+// 複素数型
+c := 1.0 + 3i // or complex(1, 3)
+d := complex64(c)
+fmt.Printf("%T\n", c)
+fmt.Printf("%T\n", d)
+
+real(c) // == 1.0
+imag(c) // == 3.0
+
+
+// 文字列型
+// ============================
+
+// rune型
+// Unicodeコードポイントを表す特殊な整数型
+r := '松' // single quote
+fmt.Printf("%T", r)
 
 // string
 s := "abc"
 fmt.Printf("s: %T\n", s)
 
+
+// 配列型
+// ============================
+
+a := [...]int{1, 2, 3, 4, 5}
+fmt.Printf("%T", a)
+
+
+// interface{}型
+// ============================
+
+var x interface{}
+fmt.Printf("%T", x) // => <nil>
 
 
 // ============================
