@@ -1,4 +1,5 @@
 -- higher-order function
+-- ==============================
 
 applyTwice :: (a -> a) -> a -> a
 applyTwice f x = f (f x)
@@ -33,6 +34,7 @@ numLongChains :: Int
 numLongChains = length (filter (\xs -> length xs >15) (map chain [1..100]))
 
 -- Convolution
+-- ==============================
 -- 畳み込み関数は、「2引数関数」,「アキュムレータ(畳み込みに用いる値)の初期値」,「リスト」を受け取る
 
 -- foldlという左畳み込みの関数を使ってsum'関数を実装し直す
@@ -44,3 +46,17 @@ sum' = foldl (+) 0
 --- foldrを使う
 map' :: (a -> b) -> [a] -> [b]
 map' f xs = foldr (\x acc -> f x : acc) [] xs
+
+-- スキャン
+-- scanl,scanrでfoldl,foldrの中間状態をリストとして返す
+main = do
+  print $ scanl (+) 0 [1..5]
+
+-- $ 関数適用演算子
+main = do
+  print $ sum ( filter (>10) (map (*2) [2..10]))
+  print $ sum $ filter (>10) $ map (*2) [2..10]
+
+-- . 関数合成
+(.) :: (b -> c) -> (a -> b) -> a -> c
+f . g = \x -> f (g x)
