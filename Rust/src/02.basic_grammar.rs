@@ -3,7 +3,7 @@
 
 fn main() {
     let name = "Taro";
-    let mut age: u32 = 26;
+    let mut age: u32 = 26; // `mut`でミュータブル(再代入可能)な変数を宣言
     age += 5;
     println!("{} is {} years old.", name, age);
 }
@@ -136,4 +136,70 @@ fn make_power_function(power: u32) -> Box<Fn(i64) -> i64> {
 fn main() {
     let power_function = make_power_function(3);
     println!("2^3 = {}", power_function(2));
+}
+
+// イテレータ
+// ========================
+
+// コレクションを繰り返し処理するための基本的な仕組み
+
+fn main() {
+    // let mut iter = 0..5;
+    // loop {
+    //     match iter.next() {
+    //         Some(num) => println!("{}", num),
+    //         None => break,
+    //     }
+    // }
+
+    // ↓ 上と同じものをより完結に書く
+
+    // let mut iter = 0..5;
+    // // while let PATTERN = EXPRESSION。ループとパターンマッチを同時に。
+    // while let Some(num) = iter.next() {
+    //     println!("{}", num);
+    // }
+
+    // ↓ 上と同じものをfor文で
+
+    for num in 0..5 {
+        println!("{}", num);
+    }
+}
+
+// 無限イテレータ
+let infinite_iterator = 100..;
+// これは遅延評価されるので、take()などで取り出す個数を指定して使う
+let first_20 = infinite_iterator.take(20);
+
+
+let infinite_iterator = 100..; // 無限イテレータ
+// filterやクロージャやtakeを組み合わせてイテレータの内容を条件式で絞り込む
+let first_even_20 = infinite_iterator.filter(|n| n % 2 == 0).take(20);
+
+for n in first_even_20 {
+    println!("{}", n);
+}
+
+// find()メソッドで一つの要素を抜き出す
+let mut infinite_iterator = 100..;
+let search_result = infinite_iterator.find(|n| n % 47 == 0);
+search_result.map(|n| {
+    println!("{}", n);
+});
+
+// position()メソッドで、ある要素がVector内のどこに位置するかを知れる
+let fruit = vec![
+    "Apple",
+    "Banana",
+    "Strawberry",
+    "Orange",
+    "Cherry",
+    "Watermelon",
+    "Pear",
+];
+let Watermelon_index = fruit.iter().position(|&f| f == "Watermelon");
+match Watermelon_index {
+    Some(i) => println!("index: {}", i),
+    None => println!("No watermelon found"),
 }
