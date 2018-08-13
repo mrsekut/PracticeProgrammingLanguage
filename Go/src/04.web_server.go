@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -15,3 +16,15 @@ func main() {
 }
 
 // access to localhost:8000/maru
+
+// net/http
+// ============================
+
+func main() {
+	// Getメソッドの実行
+	res, err := http.Get("https://www.google.com/")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(res)
+}
