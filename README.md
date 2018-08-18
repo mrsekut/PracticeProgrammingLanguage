@@ -16,6 +16,9 @@
 
 - CODEPREP
 - プログラミングRust
+- [the-rust-programming-language-ja](https://doc.rust-jp.rs/the-rust-programming-language-ja/1.6/book/)
+- [rust-by-example-ja](https://doc.rust-jp.rs/rust-by-example-ja/rust-by-example/)
+- [hazama-yuinyan/book](https://y-yu.github.io/trpl-2nd-pdf/book.pdf)
 
 ## Nim
 
