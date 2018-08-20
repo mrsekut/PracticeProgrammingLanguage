@@ -42,6 +42,30 @@ const (
 fmt.Println(sun, mon, tue)
 
 
+// ビット演算子
+// ============================
+
+// AND 論理積 両方1のときのみ1
+n := 165 & 155 // n == 129
+
+// OR 論理和 両方が0のときのみ0
+n := 197 | 169 // n == 237
+
+// XOR 排他的論理和 片方が1のときのみ1
+n := 92 ^ 137  // n == 213
+
+// AND NOT ビットクリア
+n := 108 &^ 13 // n == 96
+
+// 左シフト
+n := 1 << 1 // n == 2
+n := 4 << 2 // n == 16
+n = n << 1 // n == 32
+
+// 右シフト
+n := 1 >> 1 // n == 0
+
+
 // pointer
 // ============================
 
@@ -60,6 +84,38 @@ fmt.Println(*pa)
 func hello(name string) (msg string) {
   msg = "hello " + name
   return
+}
+
+// 複数の引数が同じ型なら型の指定は一度のみでいい
+func plus(x, y int) int {
+	return x + y
+}
+
+// 戻り値の型を指定しておけば、returnの部分に書かなくても返ってくる
+func doSomething() (x, y int) {
+	y = 5
+	return // x == 0, y == 5
+}
+
+// 無名関数
+f := func(x, y int) int { return x + y }
+fmt.Println(f(2, 3))
+
+// 高階関数 関数を返す関数
+func returnFunc() func() {
+	return func() {
+		fmt.Println("I'm a function")
+	}
+}
+
+// 高階関数 関数を引数に取る関数
+func callFunction(f func()) {
+	f()
+}
+func main() {
+	callFunction(func() {
+		fmt.Println("I'm a function")
+	})
 }
 
 // slice
