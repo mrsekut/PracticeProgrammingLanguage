@@ -118,6 +118,55 @@ func main() {
 	})
 }
 
+// クロージャ
+func later() func(string) string {
+	var store string
+	return func(next string) string {
+		s := store
+		store = next
+		return s
+	}
+}
+func main() {
+	f := later()
+	fmt.Println(f("Golang")) // => ""
+	fmt.Println(f("is")) // => "Goalng"
+	fmt.Println(f("awesome!")) // => "is"
+}
+
+// 定数
+// ============================
+
+// 複数宣言
+const (
+  x = 1
+  y = 2
+  z = 3
+)
+
+// 値の省略
+const (
+  x = 1 // x == 1
+  y     // y == 1
+  z     // z == 1
+)
+
+
+// switch
+// ============================
+
+// 式によるswitch
+switch n := 3; n {
+case 1, 2:
+	fmt.Println("1 or 2")
+case 3, 4:
+	fmt.Println("3 or 4")
+  fallthrough // 次のcaseも実行
+default:
+	fmt.Println("unknown")
+}
+
+
 // slice
 // ============================
 
@@ -199,11 +248,21 @@ for i := 0; i < 10; i++ {
 
 
 // while文ライクに書く
-
 i := 0
 for i < 10 {
   fmt.Println(i)
   i++
+}
+
+// 無限ループ
+for {
+  // 処理
+}
+
+// 範囲節によるfor
+fruits := [3]string{"Apple", "Banana", "Cherry"}
+for i, s := range fruits {
+  fmt.Printf("fuits[%d]=%s\n", i, s)
 }
 
 
