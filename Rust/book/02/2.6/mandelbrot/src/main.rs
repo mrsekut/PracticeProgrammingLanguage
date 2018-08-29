@@ -69,3 +69,23 @@ fn pixel_to_point(bouds: (usize, usize),
 fn test_pixel_to_point() {
     assert_eq!(pixel_to_point((100, 100), (25, 75), Complex {re: -1.0, im: 1.0}, Complex {re: 1.0, im: -1.0}), Complex { re: -0.5, im: -0.5})
 }
+
+// 矩形範囲のマンデルブロ集合をピクセルのバッファに描画する
+fn render(pixels: &mut [u8],
+          bounds: (usize, usize),
+          upper_left: Complex<f64>,
+          lower_right: Complex<f64>)
+{
+    assert!(pixels.len() == bounds.0 * bounds.1);
+
+    for row in 0 .. bounds.1 {
+        for column in 0 .. bound.0 {
+            let point = pixel_to_point(bounds, (column, row), upper_left, lower_right);
+            pixels[row * bounds.0 + column] =
+                match escape_time(point, 255) {
+                    None => 0,
+                    Some(count) => 255 - count as u8
+                };
+        }
+    }
+}
