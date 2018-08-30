@@ -4,7 +4,10 @@
     "target": "es2017",
     "sourceMap": true,
     "types" : ["node"],
-    "outDir": "build"
+		"lib": ["es6", "dom"],
+    "outDir": "build",
+		"rootDir": "src",
+		"baseUrl": "."
   },
   "exclude": [
     "node_modules"
