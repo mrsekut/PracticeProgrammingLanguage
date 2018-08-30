@@ -1,4 +1,8 @@
-target/
-nimcache/
-
+# 全般
 prac.*
+
+# Rust
+target/
+
+# Nim
+nimcache/
