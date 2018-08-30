@@ -2,7 +2,11 @@
 prac.*
 
 # Rust
-target/
+Rust/**/target/
 
 # Nim
-nimcache/
+Nim/**/nimcache/
+
+# TypeScript
+TypeScript/**/node_modules/
+TypeScript/**/build/
