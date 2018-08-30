@@ -8,5 +8,5 @@ Rust/**/target/
 Nim/**/nimcache/
 
 # TypeScript
-# TypeScript/**/node_modules/
-# TypeScript/**/build/
+TypeScript/**/node_modules/
+TypeScript/**/build/
