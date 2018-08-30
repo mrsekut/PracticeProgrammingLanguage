@@ -1,3 +1,6 @@
+// 並列プログラミングでマンデルブロ集合の画像を出力するプログラム
+// なぜかうまいこと画像が生成されない
+
 // $ cargo build --release
 // time target/release/mandelbrot mandel.png 4000x3000 -1.20,0.35 -1,0.20
 
