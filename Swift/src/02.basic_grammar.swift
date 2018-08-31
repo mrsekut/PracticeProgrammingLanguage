@@ -72,3 +72,40 @@ print(winners.count) // 4
 
 // 辞書
 var sales: Dictionary<String, Int> = ["taguchi": 200, "fkoji": 300]
+
+
+
+// 関数
+// ======================
+// 'from'というラベルを付けている
+func sayHi(from name: String) -> String {
+    return "hi \(name)"
+}
+
+sayHi(from: "ooo")
+
+// 引数は基本的に定数だが、`inout`を付けることで変更することができる
+func add10(x: inout Int) {
+    x = x + 10
+    print(x)
+}
+
+var i = 10
+add10(x: &i) // その場合、実行時に`&`を付ける必要がある
+
+
+// classs
+// ======================
+
+class User {
+    let name: String // property
+    var score: Int // property 
+    init() {
+        self.name = "me"
+        self.score = 23
+    }
+}
+
+let user: User = User() // インスタンス
+print(user.name)
+print(user.score)
