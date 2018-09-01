@@ -166,17 +166,6 @@ default:
 	fmt.Println("unknown")
 }
 
-
-// slice
-// ============================
-
-s := []int{1,2,3}
-s = append(s, 8, 12, 34) // 追加
-t := make([]int, len(s)) // sと同じ大きさのsliceを宣言
-copy(t, s) // コピー
-fmt.Println(t)
-
-
 // map
 // ============================
 // mapは辞書や連想配列のようなもの
@@ -265,6 +254,32 @@ for i, s := range fruits {
   fmt.Printf("fuits[%d]=%s\n", i, s)
 }
 
+// ラベル付き文
+
+LOOP:
+	for {
+		for {
+			for {
+				fmt.Println("start")
+				break LOOP
+			}
+			fmt.Println("ここは処理されない")
+		}
+		fmt.Println("ここは処理されない")
+	}
+	fmt.Println("Done")
+
+
+// goto
+// ============================
+
+func main() {
+	fmt.Println("A")
+	goto L // Lにジャンプ
+	fmt.Println("B") // 処理されない
+L:
+	fmt.Println("C")
+}
 
 // structure
 // ============================
@@ -367,10 +382,11 @@ defer res.Body.Close()
 // - ファイルのクローズなどによく使われる
 
 
-// panic
+// panicとrecover
 // ============================
 
 // - panicを実行すると、ランタイムパニックが発生し、実行中の関数は中断される
+// - recoverを実行すると、panicによって発生したランタイムパニックに依るプログラムの中断を回復する
 
 
 // goroutine & channel
