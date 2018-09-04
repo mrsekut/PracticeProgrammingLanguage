@@ -80,6 +80,7 @@ fmt.Printf("%T", x) // => <nil>
 // ============================
 //
 // 参照型
+//
 // - make関数をつかって生成する
 // ============================
 
@@ -104,11 +105,65 @@ s1 := []int{1, 2, 3}
 s2 := []int{4, 5, 6}
 s3 := append(s1, s2...) // sliceにsliceを追加するときは`...`を付ける
 
+// 参照型とは
+func pow(a []int) {
+	for i, v := range a {
+		a[i] = v * v
+	}
+	return
+}
+func main() {
+	a := []int{1, 2, 3}
+	pow(a)
+	fmt.Println(a) // => "[1, 4, 9]"
+  // スライスではなく配列の場合はこのような結果にはならない
+}
+
 // map
 // ============================
+// mapは辞書や連想配列のようなもの
+
+// make関数を使った宣言
+m := make(map[string]string) // map[keyの型]要素の型
+
+m := map[string]int{"a":100, "b":200}
+fmt.Println(m)
+
+delete(m, "a") // 値の削除
+fmt.Println(m)
+
+v, ok := m["b"] // こんなふうに書くとvalueと値が存在するかどうかのbool値を取得できる
+fmt.Println(v)
+fmt.Println(ok)
 
 // channel
 // ============================
+// goroutineとgoroutineの間でデータの受け渡しを司るためにデザインされたデータ構造
+
+var ch1 <-chan int // ch1はint型の「受信専用」チャネル
+var ch2 chan<- int // ch2はint型の「送信専用」チャネル
+
+ch := make(chan int, 8) // 第2引数でバッファサイズを指定
+
+func task1(result chan string) { // 疑似的な重い処理
+  time.Sleep(time.Second * 2)
+  result <- "task1 result"
+}
+
+func task2() { // 擬似的な軽い処理
+  fmt.Println("task2 finished")
+}
+
+func main() {
+  result := make(chan string)
+
+  go task1(result)
+  go task2()
+
+  fmt.Println(<-result)
+
+  time.Sleep(time.Second * 3)
+}
 
 // ============================
 // ポインタ型

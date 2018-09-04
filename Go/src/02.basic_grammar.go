@@ -166,21 +166,6 @@ default:
 	fmt.Println("unknown")
 }
 
-// map
-// ============================
-// mapは辞書や連想配列のようなもの
-
-m := map[string]int{"a":100, "b":200}
-fmt.Println(m)
-
-delete(m, "a") // 値の削除
-fmt.Println(m)
-
-v, ok := m["b"] // こんなふうに書くとvalueと値が存在するかどうかのbool値を取得できる
-fmt.Println(v)
-fmt.Println(ok)
-
-
 // range
 // ============================
 
@@ -387,27 +372,3 @@ defer res.Body.Close()
 
 // - panicを実行すると、ランタイムパニックが発生し、実行中の関数は中断される
 // - recoverを実行すると、panicによって発生したランタイムパニックに依るプログラムの中断を回復する
-
-
-// goroutine & channel
-// ============================
-
-func task1(result chan string) { // 疑似的な重い処理
-  time.Sleep(time.Second * 2)
-  result <- "task1 result"
-}
-
-func task2() { // 擬似的な軽い処理
-  fmt.Println("task2 finished")
-}
-
-func main() {
-  result := make(chan string)
-
-  go task1(result)
-  go task2()
-
-  fmt.Println(<-result)
-
-  time.Sleep(time.Second * 3)
-}
