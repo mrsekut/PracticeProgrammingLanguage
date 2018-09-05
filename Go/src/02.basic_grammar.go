@@ -19,8 +19,9 @@ c := "hoge" // string
 var d bool // boolean
 e := [...]int{1,3,5} // array
 f := []int{1,3,5} // slice
+p := &a
 
-fmt.Printf("a: %d, b: %f, c: %s, d: %t\n", a, b, c, d)
+fmt.Printf("a: %d, b: %f, c: %s, d: %t, p: %p\n", a, b, c, d, p)
 fmt.Println(e)
 fmt.Println(f)
 
@@ -66,15 +67,6 @@ n = n << 1 // n == 32
 n := 1 >> 1 // n == 0
 
 
-// pointer
-// ============================
-
-a := 5
-var pa *int
-pa = &a // '&a' は 'a' のアドレス
-
-fmt.Println(pa)
-fmt.Println(*pa)
 
 
 // function
