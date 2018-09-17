@@ -10,27 +10,89 @@ fn main() {
 // 変数宣言
 // ========================
 
+// 定数
+fn main() {
+    const THRESHOLD: i32 = 10; // 不変の値
+    static LANGUAGE: &'static str = "Rust" // staticなライフタイムを持つミュータブルな値
+}
+
+
+// 変数
 fn main() {
     let normal: f64 = 1.0; // 通常の宣言
+    let normal = 1.0; // 明示的に型を書かなくても型推論が効く
     let not_suffix = 3.0 // 型推論があるので型は省略できる
+    let _unused_variable = 3u32; // 使用されていない変数はエラーがでる。頭にアンダースコアを付けるとエラーを出さないようにできる
 }
 
-// タプル
+// 式文
+// ========================
+// 行末にセミコロン
+
+let x = 5u32; // 変数束縛
+
+2 * x; // 式文
+
+
+// 条件分岐
 // ========================
 
-fn make_tuple() -> (u32, String) {
-    (70, "hello".to_string())
-}
-fn main() {
-    // タプル
-    let basic_tuple = (70, "hello");
-    println!("{:?}", basic_tuple.0);
-    println!("{:?}", basic_tuple.1);
+// if
+// 条件式に括弧は不要
 
-    let (number, word) = make_tuple();
-    println!("{:?}", number);
-    println!("{:?}", word);
+if n < 0 {
+    print!("{} is negative", n);
+} else if n > 0 {
+    print!("{} is positive", n);
+} else {
+    print!("{} is zero", n);
 }
+
+// 無限ループ
+
+loop {
+    // breakやcontinueなどでループを抜けたりできる
+
+    // labelを使うとネストされたループも抜けられる
+    'outer: loop {
+        'inner: loop{
+            break 'outer;
+        }
+    }
+
+}
+
+
+// while
+// ========================
+
+while n < 101 {
+    // なんかの処理
+}
+
+
+// for文
+// ========================
+
+for n in 1..101 {
+    // なんかの処理
+}
+
+
+// match
+// ========================
+// パターンマッチング
+match number {
+    // 単一の値とのマッチをチェック
+    1 => println!("One!"),
+    // いくつかの値とのマッチをチェック
+    2 | 3 | 5 | 7 | 11 => println!("This is a prime"),
+    // 特定の範囲の値とのマッチをチェック
+    13...19 => println!("A teen"),
+    // その他の場合の処理
+    _ => println!("Ain't special"),
+}
+
 
 
 // 配列
@@ -59,57 +121,11 @@ fn gcd(mut n: u64, mut m: u64) -> u64 { // `mut`でミュータブル(再代入�
 }
 
 
+
+
+
 // 構造体
 // ========================
-
-#[derive(Debug)] // `{:?}`を使用するためには`Debug`が必要
-struct Drink {
-    name: String,
-    price_in_yen: u32,
-}
-
-#[derive(Debug)]
-struct VendingMachine {
-    drinks: Vec<Drink>, // Vecは可変のリストを表すStruct
-    cash_balance: u64,
-}
-
-fn main() {
-    let drink = Drink {
-        name: "Dr.Pepper".to_string(),
-        price_in_yen: 120,
-    };
-
-    println!("{:?}", drink); // debug print
-    println!("{:#?}", drink); // pretty debug print. 構造化されたオブジェクトを改行とインデントを伴って出力
-
-    let mut machine = VendingMachine {
-        drinks: Vec::new(), // `Vec::new()`で空のベクターを作製
-        cash_balance: 0,
-    };
-
-    machine.drinks.push(drink);
-
-    println!("{:?}", drink); // compiler error
-    println!("{:?}", machine); // debug print
-    println!("{:#?}", machine); // pretty debug print. 構造化されたオブジェクトを改行とインデントを伴って出力
-}
-
-// 修正版
-#[derive(Debug)] // `{:?}`を使用するためには`Debug`が必要
-struct Drink {
-    name: String,
-    price_in_yen: u32,
-}
-
-impl Drink {
-    fn new(name: &str, price_in_yen: u32) -> Drink {
-        Drink {
-            name: name.to_string(),
-            price_in_yen: price_in_yen,
-        }
-    }
-}
 
 #[derive(Debug)]
 struct VendingMachine {
