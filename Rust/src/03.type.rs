@@ -56,6 +56,8 @@ fn main() {
     // - String変数の先頭に`&`を付けても&str型になる
     //   - &をつけるよことによって、変数の参照を取得できる
     // - 文字列の変更操作が必要に慣ればこっち
+    // String型同士の`+`での`文字列の連結はできない
+    // 変数の先頭に`&`を付けると&str型に変換される
     let heep_string = "world".to_string(); // Stringになる
 
     println!("{},{}", string_slice, heep_string)

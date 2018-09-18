@@ -82,6 +82,7 @@ for n in 1..101 {
 // match
 // ========================
 // パターンマッチング
+let number = 13;
 match number {
     // 単一の値とのマッチをチェック
     1 => println!("One!"),
@@ -94,6 +95,26 @@ match number {
 }
 
 
+// ガード
+let pair = (2, -2);
+match pair {
+    (x, y) if x == y => println!("These are twins"),
+    //     ^ `if`とそれに続く条件式がガードです。
+    (x, y) if x + y == 0 => println!("Antimatter, kaboom!"),
+    (x, _) if x % 2 == 1 => println!("The first one is odd"),
+    _ => println!("No correlation..."),
+}
+
+
+// バインディング
+// 分岐先で値を使用する場合はバインディングが必要
+// ここではprintlnないでnを使用したいケース
+match age() {
+    0             => println!("I'm not born yet I guess"),
+    n @ 1  ... 12 => println!("I'm a child of age {:?}", n),
+    n @ 13 ... 19 => println!("I'm a teen of age {:?}", n),
+    n             => println!("I'm an old person of age {:?}", n),
+}
 
 // 配列
 // ========================
@@ -121,6 +142,15 @@ fn gcd(mut n: u64, mut m: u64) -> u64 { // `mut`でミュータブル(再代入�
 }
 
 
+// メソッド
+// ========================
+// オブジェクトに付属した関数
+// impl句によって定義する
+impl Point {
+    fn new(x: f64, y: f64) -> Point {
+        Point {x: x, y: y}
+    }
+}
 
 
 
