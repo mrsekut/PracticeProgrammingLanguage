@@ -190,6 +190,12 @@ fn main() {
     }
 }
 
+// Option型にはmapやmap_or_elseなどの便利なメソッドがある
+// map: クロージャを引数に取り、None出ない場合に実行する
+// map_or_else: 2つのクロージャを引数にとり、Noneのとき、Someのときに実行する
+user_option_1.map_or_else(||println!("None"),
+                          |user_1| println!("Some {:?}", user_1));
+
 // ポインタ型
 
 fn main() {}

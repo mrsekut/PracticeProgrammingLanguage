@@ -202,6 +202,7 @@ fn main() {
 
 let closure_annotated = |i: i32| -> i32 { i + 1 }; // 型アノテーションあり
 let closure_inferred = |i| i + 1; // 型アノテーションなし
+let one = || 1; // 引数を取らないクロージャ
 closure_annotated(i));
 
 let multiline_add_five | num | { // 複数行
