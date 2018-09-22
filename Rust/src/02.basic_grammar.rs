@@ -198,8 +198,11 @@ fn main() {
 
 // クロージャ
 // ========================
+// 自身が定義された環境の外側の変数を参照できるような関数のこと
 
-let add_five = | num | num + 5; // １行
+let closure_annotated = |i: i32| -> i32 { i + 1 }; // 型アノテーションあり
+let closure_inferred = |i| i + 1; // 型アノテーションなし
+closure_annotated(i));
 
 let multiline_add_five | num | { // 複数行
     println!("Adding five!", );
