@@ -180,6 +180,15 @@ impl VendingMachine {
     }
 }
 
+// Car構造体にDropというトレイトを実装
+// `for`を使う
+impl Drop for Car {
+    fn drop(&mut self) {
+        println!("this will be destroyed: {:#?}", self);
+    }
+}
+
+
 fn main() {
     let drink = Drink::new("Dr.Pepper", 120);
     println!("{:?}", drink); // debug print
@@ -286,14 +295,3 @@ match Watermelon_index {
     Some(i) => println!("index: {}", i),
     None => println!("No watermelon found"),
 }
-
-// ムーブ
-// ========================
-
-// - Rustでは所有権の移動のことをムーブという
-
-// 借用
-// ========================
-
-// - 所有権を移動せずに変数を出力するだけなら借用で済む
-// - 借用を行うためには引数のデータ型宣言の先頭に`&`をつける

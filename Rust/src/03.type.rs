@@ -215,3 +215,20 @@ let integer = decimal as u8; // `as`を使って型キャストする
 // `NanoSecond` を `u64`の別名として使用する。
 // エイリアス名はCamelCase
 type NanoSecond = u64;
+
+
+
+// Generic
+// ========================
+
+
+// `A`という具象型(非ジェネリック型)
+struct A;
+
+// ジェネリック型
+// Tは型パラメータ
+struct SingleGen<T>(T)
+
+// Tに対してジェネリックな関数
+fn generic<T>(_s: SGen<T>){} // 関数定義
+generic::<char>(SGen('a')); // 関数呼び出し
