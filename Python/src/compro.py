@@ -1,3 +1,7 @@
+# AtCoderはnumpy使える!!!!!!!!!!
+import numpy as np
+
+
 # リストの要素を全てintでinput()する
 s = list(map(int, input().split()))
 
