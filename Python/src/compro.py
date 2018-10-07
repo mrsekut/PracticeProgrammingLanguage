@@ -1,4 +1,9 @@
 # AtCoderはnumpy使える!!!!!!!!!!
+# - 逐次でも解けたら良い
+# - 計算ミスに気をつける
+# - rangeの範囲にも気をつける
+# 未読 https://qiita.com/y-tsutsu/items/aa7e8e809d6ac167d6a1
+
 import numpy as np
 
 
@@ -19,9 +24,8 @@ s = [input() for i in range(int(input()))]
 # s = [ input() for i in range(n) ]
 
 # https://qiita.com/fmhr/items/77fc453e2fb1bc02e392
-# 複数行&複数文字
-s = [[int(i) for i in input().split()] for i in range(int(input()))]
-print(s)
+# 複数(n)行&複数文字
+s = [[int(i) for i in input().split()] for i in range(int(input()))] print(s)
 
 
 # 文字数カウント
@@ -91,3 +95,10 @@ if data is None:
 # http://naoyat.hatenablog.jp/entry/2011/12/29/021414
 x[1, ...]
 # でアクセスできる
+
+
+# リストをソートする関数
+# https: // note.nkmk.me/python-list-unique-duplicate/
+def get_unique_list(seq):
+    seen = []
+    return [x for x in seq if x not in seen and not seen.append(x)]
