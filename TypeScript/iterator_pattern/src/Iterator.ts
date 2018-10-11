@@ -1,5 +1,5 @@
 // Iterator Interface
-export interface AuthorIterator {
+export default interface AuthorIterator {
   hasNext: () => boolean;
   next: () => number;
 }
