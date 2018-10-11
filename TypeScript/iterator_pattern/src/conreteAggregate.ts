@@ -1,14 +1,15 @@
-import AuthorListSimplIterator from './concreteIterator';
 import AuthorList from './aggreagate';
+import AuthorListSimpleIterator from './concreteIterator';
+import AuthorIterator from './Iterator';
 
-export default class AuthorSimple implements AuthorList {
-  public authorList;
+export default class AuthorSimple<T> implements AuthorList {
+  public authorList: T[];
 
-  constructor(authors) {
+  constructor(authors: T[]) {
     this.authorList = authors;
   }
 
-  public addToList(author) {
+  public addToList(author: T[]) {
     this.authorList = author;
   }
 
@@ -16,7 +17,7 @@ export default class AuthorSimple implements AuthorList {
     return this.authorList;
   }
 
-  public createIterator() {
-    return new AuthorListSimplIterator(this.authorList);
+  public createIterator(): AuthorIterator {
+    return new AuthorListSimpleIterator(this.authorList);
   }
 }

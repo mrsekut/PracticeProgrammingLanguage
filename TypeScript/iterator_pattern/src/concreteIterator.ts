@@ -1,10 +1,10 @@
 import AuthorIterator from './iterator';
 
-export default class AuthorListSimpleIterator implements AuthorIterator {
-  private authors: any;
+export default class AuthorListSimpleIterator<T> implements AuthorIterator {
+  private authors: T[];
   private position = 0;
 
-  constructor(authors) {
+  constructor(authors: T[]) {
     this.authors = authors;
   }
 
@@ -12,7 +12,7 @@ export default class AuthorListSimpleIterator implements AuthorIterator {
     return this.position < this.authors.length;
   }
 
-  public next() {
+  public next(): Object {
     return this.authors[this.position++];
   }
 }

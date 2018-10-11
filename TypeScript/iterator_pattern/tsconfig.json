@@ -3,10 +3,11 @@
     "module": "commonjs",
     "target": "es2017",
     "sourceMap": true,
-    "types": ["node"],
     "lib": ["es6", "dom"],
     "outDir": "build",
     "rootDir": "src",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "strict": true,
+    "allowUnreachableCode": false
   }
 }
