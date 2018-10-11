@@ -1,16 +1,16 @@
-# TypeScript プロジェクトのための最小のテンプレート
+# Minium Template for TypeScript Project
 
 ## compile
 
 `$ npm run tsc`
 
-## exec
+## run in the background
 
 `$ node build/index.js`
 
 ## how to make this project
 
-1. npm install
+1. npm init
 
 `$ npm init`
 
@@ -21,6 +21,7 @@
 3. edit package.json
 
 ```
+// package.json
 {
   "name": "ts_sample_template",
   "version": "1.0.0",
@@ -38,6 +39,7 @@
 4. edit tsconfig.json
 
 ```
+// tsconfig.json
 {
   "compilerOptions": {
     "module": "commonjs",
@@ -55,10 +57,11 @@
 5. make index.ts
 
 ```
+// index.ts
 const message: string = 'Hello! TypeScript!';
 console.log(message);
 ```
 
-6. exec
+6. run
 
 `$ node build/index.js`
