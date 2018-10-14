@@ -1,12 +1,11 @@
 import AuthorIterator from './iterator';
 
-export default class AuthorListSimpleIterator implements AuthorIterator {
-  private authors: string[];
-  private index: number;
+export default class AuthorListSimpleIterator<T> implements AuthorIterator<T> {
+  private authors: T[];
+  private index = 0;
 
-  constructor(authors: string[]) {
+  constructor(authors: T[]) {
     this.authors = authors;
-    this.index = 0;
   }
 
   public hasNext() {
@@ -17,22 +16,3 @@ export default class AuthorListSimpleIterator implements AuthorIterator {
     return this.authors[this.index++];
   }
 }
-
-// import AuthorIterator from './iterator';
-
-// export default class AuthorListSimpleIterator<T> implements AuthorIterator {
-//   private authors: T[];
-//   private index = 0;
-
-//   constructor(authors: T[]) {
-//     this.authors = authors;
-//   }
-
-//   public hasNext() {
-//     return this.index < this.authors.length;
-//   }
-
-//   public next() {
-//     return this.authors[this.index++];
-//   }
-// }

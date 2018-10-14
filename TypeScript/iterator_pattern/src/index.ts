@@ -1,11 +1,9 @@
 import Book from './book';
 import AuthorSimple from './conreteAggregate';
-import AuthorListSimpleIterator from './concreteIterator';
 
 type Author = string;
 
-// const authorsSimpleList: Author[] = [
-const authorsSimpleList = [
+const authorsSimpleList: Author[] = [
   'Kishi Yusuke',
   'Inui Kurumi',
   'Higashino Keigo',
@@ -13,8 +11,5 @@ const authorsSimpleList = [
   'Hyakuta Naoki'
 ];
 
-// const bookA = new Book(new AuthorSimple<Author>(authorsSimpleList));
-// bookA.printAuthors();
-
-const bookA = new Book(new AuthorSimple(authorsSimpleList));
+const bookA = new Book(new AuthorSimple<Author>(authorsSimpleList));
 bookA.printAuthors();

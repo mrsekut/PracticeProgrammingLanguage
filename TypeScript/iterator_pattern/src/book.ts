@@ -1,9 +1,9 @@
 import AuthorList from './aggreagate';
 import AuthorIterator from './iterator';
-export default class Book {
-  private authorIterator: AuthorIterator;
+export default class Book<T> {
+  private authorIterator: AuthorIterator<T>;
 
-  constructor(authorList: AuthorList) {
+  constructor(authorList: AuthorList<T>) {
     this.authorIterator = authorList.createIterator();
   }
 
@@ -14,20 +14,3 @@ export default class Book {
     }
   }
 }
-
-// import AuthorList from './aggreagate';
-// import AuthorIterator from './iterator';
-// export default class Book<T> {
-//   private authorIterator: AuthorIterator;
-
-//   constructor(authorList: AuthorList) {
-//     this.authorIterator = authorList.createIterator();
-//   }
-
-//   printAuthors() {
-//     while (this.authorIterator.hasNext()) {
-//       const author = this.authorIterator.next();
-//       console.log(author);
-//     }
-//   }
-// }
