@@ -1,6 +1,6 @@
 import AuthorIterator from './iterator';
 
 // Aggregate Interface
-export default interface AuthorList<T> {
-  createIterator: () => AuthorIterator<T>;
+export default interface AuthorList {
+  createIterator: () => AuthorIterator;
 }

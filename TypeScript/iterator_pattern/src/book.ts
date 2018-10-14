@@ -1,9 +1,9 @@
 import AuthorList from './aggreagate';
 import AuthorIterator from './iterator';
-export default class Book<T> {
-  private authorIterator: AuthorIterator<T>;
+export default class Book {
+  private authorIterator: AuthorIterator;
 
-  constructor(authorList: AuthorList<T>) {
+  constructor(authorList: AuthorList) {
     this.authorIterator = authorList.createIterator();
   }
 

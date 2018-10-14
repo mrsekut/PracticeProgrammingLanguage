@@ -1,6 +1,6 @@
 import AuthorIterator from './iterator';
 
-export default class AuthorListSimpleIterator<T> implements AuthorIterator<T> {
+export default class AuthorListSimpleIterator<T> implements AuthorIterator {
   private authors: T[];
   private index = 0;
 
