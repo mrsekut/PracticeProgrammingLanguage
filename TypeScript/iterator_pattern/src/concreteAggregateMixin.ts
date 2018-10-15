@@ -1,11 +1,11 @@
 export default class AuthorListMethods<T> {
   constructor(public authorList: T[]) {}
 
-  public addToList(author: T) {
+  addToList(author: T) {
     this.authorList.push(author);
   }
 
-  public getAuthorList() {
+  getAuthorList() {
     return this.authorList;
   }
 }
