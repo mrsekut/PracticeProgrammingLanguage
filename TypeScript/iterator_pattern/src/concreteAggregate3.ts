@@ -12,19 +12,11 @@ type AuthorDetailedList = {
 export default class AuthorsDetailedOrderById
   extends AuthorListMethods<AuthorDetailedList>
   implements AuthorList {
-  public authorList: AuthorDetailedList[];
+  addToList!: (author: AuthorDetailedList) => void;
+  getAuthorList!: () => AuthorDetailedList[];
 
-  constructor(authors: AuthorDetailedList[]) {
-    super();
-    this.authorList = authors;
-  }
-
-  public addToList(author: AuthorDetailedList) {
-    this.authorList.push(author);
-  }
-
-  public getAuthorList() {
-    return this.authorList;
+  constructor(public authorList: AuthorDetailedList[]) {
+    super(authorList);
   }
 
   public createIterator() {

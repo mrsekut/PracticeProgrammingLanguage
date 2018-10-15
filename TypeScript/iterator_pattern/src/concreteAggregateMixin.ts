@@ -1,9 +1,5 @@
 export default class AuthorListMethods<T> {
-  // public authorList: T[];
-
-  constructor(public authorList: T[]) {
-    // this.authorList = authors;
-  }
+  constructor(public authorList: T[]) {}
 
   public addToList(author: T) {
     this.authorList.push(author);
@@ -12,24 +8,4 @@ export default class AuthorListMethods<T> {
   public getAuthorList() {
     return this.authorList;
   }
-
-  public oPrint() {
-    console.log(this.authorList);
-  }
 }
-
-// export default class AuthorListMethods {
-//   constructor(public authors: any) {}
-
-//   public oPrint() {
-//     return this.authors;
-//   }
-// }
-
-// export default class Container {
-//   constructor(public value: number) {}
-
-//   display() {
-//     return `node: ${this.value}`;
-//   }
-// }
