@@ -1,10 +1,11 @@
+import AuthorList from './aggreagate';
 import AuthorListDetailedIterator from './concreteIterator2';
 import AuthorListMethods from './concreteAggregateMixin';
 import { AuthorDetailedList } from './index.d';
 
-export default class AuthorsDetailed extends AuthorListMethods<
-  AuthorDetailedList
-> {
+export default class AuthorsDetailed
+  extends AuthorListMethods<AuthorDetailedList>
+  implements AuthorList {
   addToList!: (author: AuthorDetailedList) => void;
   getAuthorList!: () => AuthorDetailedList[];
 

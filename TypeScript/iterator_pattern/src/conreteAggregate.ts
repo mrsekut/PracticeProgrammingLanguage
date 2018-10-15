@@ -1,20 +1,15 @@
 import AuthorList from './aggreagate';
 import AuthorListSimpleIterator from './concreteIterator';
+import AuthorListMethods from './concreteAggregateMixin';
 import { Author } from './index.d';
 
-export default class AuthorSimple implements AuthorList {
-  public authorList: Author[];
+export default class AuthorSimple extends AuthorListMethods<Author>
+  implements AuthorList {
+  addToList!: (author: Author) => void;
+  getAuthorList!: () => Author[];
 
-  constructor(authors: Author[]) {
-    this.authorList = authors;
-  }
-
-  public addToList(author: Author) {
-    this.authorList.push(author);
-  }
-
-  public getAuthorList() {
-    return this.authorList;
+  constructor(public authorList: Author[]) {
+    super(authorList);
   }
 
   public createIterator() {
