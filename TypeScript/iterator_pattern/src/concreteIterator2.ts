@@ -1,17 +1,17 @@
 import AuthorIterator from './iterator';
 
 // これ消してgenericにする? 今のAuthorSimpleみたいに
-type AuthorDetailed = {
+type AuthorDetailedList = {
   familyName: string;
   givenName: string;
   id: number;
 };
 
 export default class AuthorListDetailedIterator implements AuthorIterator {
-  protected authors: AuthorDetailed[]; // TODO:protected???
+  protected authors: AuthorDetailedList[]; // TODO:protected???
   private position = 0;
 
-  constructor(authors: AuthorDetailed[]) {
+  constructor(authors: AuthorDetailedList[]) {
     this.authors = authors;
   }
 

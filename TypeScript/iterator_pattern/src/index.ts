@@ -2,6 +2,7 @@ import Book from './book';
 import AuthorSimple from './conreteAggregate';
 import AuthorListDetailedIterator from './concreteIterator2';
 import AuthorListDetailedOrderByIdIterator from './concreteIterator3';
+import AuthorsDetailed from './concreteAggregate2';
 
 type Author = string;
 const authorsSimpleList: Author[] = [
@@ -12,13 +13,13 @@ const authorsSimpleList: Author[] = [
   'Hyakuta Naoki'
 ];
 
-type AuthorDetailed = {
+type AuthorDetailedList = {
   familyName: string;
   givenName: string;
   id: number;
 };
 
-const authorsDetailedList: AuthorDetailed[] = [
+const authorsDetailedList: AuthorDetailedList[] = [
   {
     familyName: 'Kishi',
     givenName: 'Yusuke',
@@ -47,13 +48,20 @@ const authorsDetailedList: AuthorDetailed[] = [
 ];
 
 // const bookA = new Book(new AuthorSimple<Author>(authorsSimpleList));
-// bookA.printAuthors();
+// bookA.printAuthors
 
 // const bookB = new AuthorListDetailedIterator(authorsDetailedList);
 // console.log(bookB.next());
 
-const bookC = new AuthorListDetailedOrderByIdIterator(authorsDetailedList);
-console.log(bookC.next());
-console.log(bookC.next());
-console.log(bookC.next());
-console.log(bookC.next());
+// const bookC = new AuthorListDetailedOrderByIdIterator(authorsDetailedList);
+// console.log(bookC.next());
+// console.log(bookC.next());
+// console.log(bookC.next());
+// console.log(bookC.next());
+
+const a = new AuthorsDetailed(authorsDetailedList);
+a.oPrint();
+
+// import Container from './concreteAggregateMixin';
+// const a = new AuthorsDetailed(new Container(10));
+// console.log(a.display());

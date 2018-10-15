@@ -3,7 +3,7 @@ import AuthorIterator from './iterator';
 
 // これ消してgenericにする? 今のconcreteIteratorみたいに
 // そのかわり`id`は持ってないといけないようにする 継承？
-type AuthorDetailed = {
+type AuthorDetailedList = {
   familyName: string;
   givenName: string;
   id: number;
@@ -12,7 +12,7 @@ type AuthorDetailed = {
 export default class AuthorListDetailedOrderByIdIterator
   extends AuthorListDetailedIterator
   implements AuthorIterator {
-  constructor(authors: AuthorDetailed[]) {
+  constructor(authors: AuthorDetailedList[]) {
     super(authors);
     authors.sort((a, b) => (a.id < b.id ? -1 : 1));
   }
