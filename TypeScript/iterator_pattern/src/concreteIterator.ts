@@ -1,10 +1,11 @@
 import AuthorIterator from './iterator';
+import { Author } from './index.d';
 
-export default class AuthorListSimpleIterator<T> implements AuthorIterator {
-  private authors: T[];
+export default class AuthorListSimpleIterator implements AuthorIterator {
+  private authors: Author[];
   private index = 0;
 
-  constructor(authors: T[]) {
+  constructor(authors: Author[]) {
     this.authors = authors;
   }
 

@@ -1,12 +1,6 @@
 import AuthorListDetailedIterator from './concreteIterator2';
 import AuthorListMethods from './concreteAggregateMixin';
-
-// // これ消してgenericにする? 今のAuthorSimpleみたいに
-type AuthorDetailedList = {
-  familyName: string;
-  givenName: string;
-  id: number;
-};
+import { AuthorDetailedList } from './index.d';
 
 export default class AuthorsDetailed extends AuthorListMethods<
   AuthorDetailedList

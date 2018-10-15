@@ -1,13 +1,6 @@
 import AuthorListDetailedIterator from './concreteIterator2';
 import AuthorIterator from './iterator';
-
-// これ消してgenericにする? 今のconcreteIteratorみたいに
-// そのかわり`id`は持ってないといけないようにする 継承？
-type AuthorDetailedList = {
-  familyName: string;
-  givenName: string;
-  id: number;
-};
+import { AuthorDetailedList } from './index.d';
 
 export default class AuthorListDetailedOrderByIdIterator
   extends AuthorListDetailedIterator
