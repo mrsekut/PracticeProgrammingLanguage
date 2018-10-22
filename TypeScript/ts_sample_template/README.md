@@ -8,6 +8,10 @@
 
 `$ node build/index.js`
 
+## npm update
+
+`$ npm update`
+
 ## how to make this project
 
 1. npm init

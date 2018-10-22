@@ -60,25 +60,173 @@ fun sayHi(name: String = "初期値", age: Int): String{
 fun sayHi(): String = "Hi" // 型推論により型は省略可
 
 // Class
-class User(var name: String) {  // コンストラクタ引数
-    var team = "red"
-    // getter
-    get() = field.toUpperCase()
-    // setter
-    set(value) {
-        if(value!=""){
-            println("hi $name")
-        }
+// ========================================
+// Userクラスを継承する子クラス
+class AdminUser(name: String): User(name){
+    fun sayHello() {
+        println("hello $name")
     }
-    init {
-        println("insctance crated: name: $name, team: $team")
+
+    override fun over() {
+        println("child")
     }
-    fun sayHi() { // メソッド
-        // println("hi ${this.name}")
+
+}
+
+// 親クラス
+open class User(var name: String) {  // コンストラクタ引数
+    var team = "red" // プロパティ
+
+    // 初期化処理。construtor?
+    init { 
+        println("instance created, name: $name")
+    }
+
+
+    fun sayHi() { // method
         println("hi ${name}") // 自明の場合はthis省略可
+    }
+
+    open fun over() {
+        println("parent")
     }
 }
 
-val user = User() // インスタンス作成
-println(user.name)
-user.sayHi()
+
+fun main(args: Array<String>) {
+    val user = User("parent") // インスタンス作成
+    user.sayHi()
+    user.over()
+
+
+    val admin = AdminUser("child")
+    admin.sayHello()
+    admin.over()
+}
+
+// アクセス修飾子
+
+// - public
+// - protected
+// - private
+
+// 拡張
+// クラスを継承しなくても拡張してメソッドの追加などができる
+fun User.sayHello(){
+    println("hello $name")
+}
+
+
+// 抽象クラス
+abstract class AbsUser { 
+    abstract fun sayHi()
+}
+
+// 具象クラス
+class Japanese: AbsUser() {
+    override fun sayHi() {
+        println("こんにちは")
+    }
+}
+
+
+class American: AbsUser() {
+    override fun sayHi() {
+        println("hello")
+    }
+}
+
+fun main(args: Array<String>) {
+    val tarou = Japanese()
+    val tom = American()
+
+    tarou.sayHi()
+    tom.sayHi()
+}
+
+
+// interface
+
+interface Sharable {
+    // 抽象プロパティ
+    var version: Double 
+    // 抽象メソッド
+    fun share()
+    // メソッド
+    fun getInfo() {
+        println("share $version")
+    }
+}
+
+// interfaceの実装
+class User: Sharable{
+    override var version = 1.1
+    override fun share() {
+        println(("share"))
+    }
+}
+
+// generics
+class  MyData<T> {
+    fun getThree(x: T){
+        println(x)
+        println(x)
+        println(x)
+    }
+}
+
+// data class
+data class Point(val x: Int, val y: Int)
+
+fun main(args: Array<String>) {
+    val p1 = Point(3,5)
+    val p2 = Point(3,5)
+    println(p1)
+    println(if (p1 == p2) "same" else "not same")
+}
+
+// Collection 
+// =========================
+// それぞれimmutable/mutableとある
+
+// - List(配列) 
+val imList: List<Int> = listOf(20,30,40)
+val muList: List<Int> = mutableListOf(20,30,40) // 変更可
+println(imList[1])
+println(imList.size)
+for (v in imList){
+    println(v)
+}
+
+
+// - Set(重複なし配列)
+val imSet = setOf(5,3,2,5)
+val muSet = mutableSetOf(5,3,2,5) // 変更可
+println(imSet) // 5,3,2
+println(imSet.contains(3)) // 存在確認
+
+// intersect, union, subtractなの集合計算のためのメソッドもある
+
+// - Map(連想配列)
+val iuMap: Map<String, Int> = mapOf("taguchi" to 40, "fkoji" to 80)
+val muMap: Map<String, Int> = mutableMapOf("taguchi" to 40, "fkoji" to 80) // 変更可
+println(iuMap["taguchi"])
+println(iuMap.size)
+println(iuMap.keys)
+println(iuMap.values)
+println(iuMap.entries) // all
+
+// collection処理のための関数
+// ラムダ式内で`it`を使える
+val prices = listOf(53, 43, 32)
+prices
+    .map {n -> n * 1.08}
+    .filter { it > 50} // { n -> n > 50} と同じ意味
+    .forEach { println(it) }
+
+// 例外処理
+// try catchを使う
+
+// null時の処理
+// Nullable型
+// `?`とか

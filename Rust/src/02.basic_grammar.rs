@@ -124,6 +124,19 @@ fn main() {
     println!("{:?}", xs);
 }
 
+// 連想配列 hashmap
+// ========================
+// - https://qiita.com/garkimasera/items/a6df4d1cd99bc5010a5e
+fn main() {
+    use std::collections::HashMap;
+    let mut map = HashMap::new();
+    map.insert("lisp", 1958);
+    map.insert("c", 1972);
+    map.insert("rust", 2006);
+
+    println!("{:?}", map);
+}
+
 
 // 関数
 // ========================

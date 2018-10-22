@@ -6,53 +6,33 @@ import "fmt"
 // 抽象クラス Subject
 // =======================
 
-// ?
-// type observer interface {
-// }
+type Subject struct {
+	observers []Observer
+}
 
-// // structの中にはフィールドを記述
-// type Subject struct {
-// 	observers []observer
-// }
+func NewSubject() *Subject {
+	return &Subject{observers: []Observer{}}
+}
 
-// // LIGの`registerObserver`
-// func (self *Subject) addObserver(observer observer) {
-// 	self.observers = append(self.observers, observer)
-// }
+func (self *Subject) registerObser(observer Observer) {
+	self.observers = append(self.observers, observer)
+}
 
-// func (self *subject) removeObserver(observer observer){
-// 	oid := observer.id
+// func removeObserver
 
-// LIGには具象クラスに中身を書いているけど(なんで？),抽象クラスで定義
-// func (self *Subject) notifyObservers() []int {
-// 	var result []int
-// 	for _, observer := range self.observers {
-// 		result = append(result, observer)
-// 	}
-// }
+// func (self *Subject) notify() {}
 
 // =======================
 // 具象クラス SMS extends Subject
 // =======================
 
-// type SMS struct {
-// 	*Subject
-// }
-
 type SMS struct {
-	time      string
-	observers []IObserver
+	*Subject
 }
 
 func NewSMS() *SMS {
-	return &SMS{time: "", observers: []IObserver{}}
+	return &SMS{Subject: NewSubject()}
 }
-
-func (self *SMS) registerObserver(observer IObserver) {
-	self.observers = append(self.observers, observer)
-}
-
-// func removeObserver
 
 func (self *SMS) notifyObservers() {
 	for _, observer := range self.observers {
@@ -60,9 +40,9 @@ func (self *SMS) notifyObservers() {
 	}
 }
 
-// func (self, *SMS) iAmHome() {
-// 	self.notifyObservers()
-// }
+func (self *SMS) iAmHome() {
+	self.notifyObservers()
+}
 
 // =======================
 // 抽象クラス Observer
@@ -75,13 +55,13 @@ type IObserver interface {
 type Observer struct {
 	id      int
 	subject SMS
+	IObserver
 }
 
 // constructor
 func NewObserver(id int, subject SMS) *Observer {
-	obs := &Observer{id: id, subject: subject}
-	subject.registerObserver(obs.IObserver)
-	return obs
+	// subject.registerObser()
+	return &Observer{id: id, subject: subject}
 }
 
 // =======================
@@ -109,5 +89,5 @@ func main() {
 	sms := NewSMS()
 	NewGirlFriend(2, *sms)
 
-	sms.notifyObservers()
+	sms.iAmHome()
 }

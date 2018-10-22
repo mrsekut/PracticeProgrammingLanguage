@@ -96,6 +96,7 @@ type User struct {
 	Name string
 }
 
+// コンストラクタ
 // 慣例的に`new`,`New`から関数名を始める
 func NewUser(id int, name string) *User {
 	u := new(User)
