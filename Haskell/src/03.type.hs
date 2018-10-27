@@ -1,26 +1,73 @@
 -- 型
 -- ==============================
 
--- Int
+Int
 -- 整数, 有界である
 
--- Integer
+Integer
 -- 整数, 有界でない
 factorial 50
 -- > 30414093201713378043612608166064768844377641568960512000000000000
 
--- Float
+Float
 -- 精度浮動小数点数
 
--- Double
+Double
 -- 倍精度浮動小数点数
 
--- Bool
+Rational
+-- 有理数
+
+Bool
 -- 真理値
 
--- Char
+Char
 -- Unicode文字
 
+-- 型注釈
+-- ==============================
+-- `::`で型を与えることを型注釈と呼ぶ
+ex :: Int -> Int
+
+
+-- 多層型
+-- ==============================
+-- Generics的なやつ
+-- ex. ghciで以下を実行したときの`a`など
+Prelude> :t head
+head :: [a] -> a
+
+-- リスト
+-- 型`[]`は型一つを包んでリストになる「リストの型コンストラクタ」
+-- 値の`[]`は空リストで別物
+[a]
+[Int] -- 多倍長整数のリスト
+[[Char]] -- 文字のリストのリスト
+
+-- タプル
+-- 直積型の一つ
+-- 型`(,)`は型2つを包んでタプルになる「タプルの型コンストラクタ」
+-- 値の`(,)`は「タプルのコンストラクタ」で別物
+(a, b)
+(Int, Double)
+(Bool, [Char])
+
+
+-- Either
+-- 直和型の一つ
+-- 2つの型の値の内どちらかを取る
+-- 「どちら」を取るかをLeft,Rightで表現
+Either a b
+Prelude> Left 1 :: Either Int String
+Prelude> Right "test" :: Either Int String
+
+-- Maybe
+-- ある型aに無効値(Nothing)をを加えた型
+-- `Maybe`は型を一つ包んで`Maybe a`型を作る型コンストラクタ
+-- isJust関数でJustかそうでないかを判定してくれる
+Maybe a
+Maybe String -- 有効な値はJust,無効な値はNothingで表される
+Maybe Bool -- 有効な値はJust True,もしくはJust False,無効な値はNothingで表される
 
 -- 型クラス
 -- ==============================
@@ -66,10 +113,19 @@ factorial 50
 --
 -- ==============================
 
--- 型
------------------------------------
+-- type宣言
+-- 既存の型に別名をつける
+type K = Double
 
--- Shapeは自分でつくった型
+-- newtype宣言
+-- 既存の型をベースに新しい型を作る
+newtype K = K Double 
+-- 右辺の`K`はコンストラクタ(左辺と同じである必要はない)
+
+
+-- 代数データ型
+-- 完全に新しい型を作る
+-- 以下の例では`Shape`という型を作っている
 -- 以下のCircle,Rectangleなどを`値コンストラクタ`と呼ぶ
 data Shape = Circle Float Float Float |       -- x, y, r
              Rectangle Float Float Float Float -- 左下(x, y), 右上(x, y)
@@ -95,3 +151,7 @@ data Person = Person { firstName:: String
                      , height :: Float
                      , phoneNumber :: String
                      , flavor :: String } deriving (Show)
+
+-- 代数データ型を多層型にする
+-- 座標を表す自作Coord型の座標はIntでもDoubleでもその時時に合わたものにできる
+data Coord a = Coord { getX :: a, getY :: a}
