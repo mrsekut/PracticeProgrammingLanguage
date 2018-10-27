@@ -27,7 +27,7 @@
 ```
 // package.json
 {
-  "name": "ts_sample_template",
+  "name": "ts_sample_template", // ← your project name
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -58,7 +58,7 @@
 }
 ```
 
-5. make index.ts
+5. make src/index.ts
 
 ```
 // index.ts
