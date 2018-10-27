@@ -1,22 +1,22 @@
-import * as express from 'express'
+import * as express from 'express';
 
 class App {
-  public express
+  public express;
 
   constructor() {
-    this.express = express()
-    this.mountRoutes()
+    this.express = express();
+    this.mountRoutes();
   }
 
   private mountRoutes(): void {
-    const router = express.Router()
+    const router = express.Router();
     router.get('/', (req, res) => {
       res.json({
         messasge: 'hello world'
-      })
-    })
-    this.express('/', router)
+      });
+    });
+    this.express('/', router);
   }
 }
 
-export default new App().express
+export default new App().express;

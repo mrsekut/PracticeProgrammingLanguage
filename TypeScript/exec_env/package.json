@@ -1,0 +1,13 @@
+{
+  "name": "exec_env",
+  "version": "1.0.0",
+  "description": "ここで書いて試して、必要なら他の場所に移して保存する",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mrsekut",
+  "repository": "exec_env",
+  "license": "ISC"
+}
