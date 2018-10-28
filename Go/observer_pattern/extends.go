@@ -51,30 +51,33 @@ func newObserver(name string) *Child {
 // nameを設定したい
 // 要件:　クラスごとに通知内容を全く別物にしたい
 
-// type Mom struct {
-// 	*Child
-// }
+type Mom struct {
+	*Child
+}
 
-// func newMom() *Mom {
-// 	return &Mom{&Child{name: "Mom"}}
-// }
+func newMom() *Mom {
+	return &Mom{newObserver("mom")}
+}
 
-// func (g *Mom) notify() {
-// 	fmt.Printf("%vは,今帰ったでえ！！", g.name)
-// }
+func (g Mom) notify() {
+	fmt.Printf("%vは,今帰ったでえ！！\n", g.name)
+}
 
 type GirlFriend struct {
 	*Child
 }
 
 func newGirlFriend() *GirlFriend {
-	// return &GirlFriend{newObserver("Hanako")}
+	return &GirlFriend{newObserver("Hanako")}
+	// 以下を使っても同じ
 	// return &GirlFriend{Child: newObserver("Hanako")}
-	return &GirlFriend{&Child{name: "Hanako"}}
+	// return &GirlFriend{&Child{name: "Hanako"}}
 }
 
-func (g *GirlFriend) notify() {
-	fmt.Printf("%vは,今帰ったよ", g.name)
+// ここポインタ型レシーバだとみする！！！！！
+// func (g *GirlFriend) notify() {
+func (g GirlFriend) notify() {
+	fmt.Printf("%vは,今帰ったよ\n", g.name)
 }
 
 // =======================
@@ -84,11 +87,10 @@ func (g *GirlFriend) notify() {
 func main() {
 
 	sms := newSubject("sms")
-	// mom := newMom()
+	mom := newMom()
 	gf := newGirlFriend()
-	// gf.notify()
 
-	// sms.addObserver(*mom)
+	sms.addObserver(*mom)
 	sms.addObserver(*gf)
 
 	sms.notifyObservers()
