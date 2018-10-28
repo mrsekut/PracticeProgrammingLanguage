@@ -31,16 +31,16 @@ type Observer interface {
 	notify()
 }
 
-type Child struct {
+type ConcreteOverserver struct {
 	name string
 }
 
-func newChild(name string) *Child {
-	return &Child{name: name}
+func newObserver(name string) *ConcreteOverserver {
+	return &ConcreteOverserver{name}
 }
 
-func (o Child) notify() {
-	fmt.Printf("hello! i am %v\n", o.name)
+func (c ConcreteOverserver) notify() {
+	fmt.Printf("hello! i am %v\n", c.name)
 }
 
 // main
@@ -48,8 +48,8 @@ func (o Child) notify() {
 
 func main() {
 	s := newSubject("sms")
-	mom := newChild("mom")
-	gf := newChild("girlFriend")
+	mom := newObserver("mom")
+	gf := newObserver("girlFriend")
 
 	s.addObserver(*mom)
 	s.addObserver(*gf)
