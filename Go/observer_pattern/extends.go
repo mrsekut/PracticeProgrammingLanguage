@@ -33,17 +33,16 @@ func (s Subject) notifyObservers() {
 // 抽象クラス Observer
 // =======================
 
-type Notify interface {
+type Observer interface {
 	notify()
 }
 
-type Observer struct {
+type Child struct {
 	name string
-	Notify
 }
 
-func newObserver(name string) *Observer {
-	return &Observer{name: name}
+func newObserver(name string) *Child {
+	return &Child{name: name}
 }
 
 // =======================
@@ -53,11 +52,11 @@ func newObserver(name string) *Observer {
 // 要件:　クラスごとに通知内容を全く別物にしたい
 
 // type Mom struct {
-// 	*Observer
+// 	*Child
 // }
 
 // func newMom() *Mom {
-// 	return &Mom{&Observer{name: "Mom"}}
+// 	return &Mom{&Child{name: "Mom"}}
 // }
 
 // func (g *Mom) notify() {
@@ -65,13 +64,13 @@ func newObserver(name string) *Observer {
 // }
 
 type GirlFriend struct {
-	*Observer
+	*Child
 }
 
 func newGirlFriend() *GirlFriend {
 	// return &GirlFriend{newObserver("Hanako")}
-	// return &GirlFriend{Observer: newObserver("Hanako")}
-	return &GirlFriend{&Observer{name: "Hanako"}}
+	// return &GirlFriend{Child: newObserver("Hanako")}
+	return &GirlFriend{&Child{name: "Hanako"}}
 }
 
 func (g *GirlFriend) notify() {
