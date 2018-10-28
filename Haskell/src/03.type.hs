@@ -123,7 +123,7 @@ newtype K = K Double
 -- 右辺の`K`はコンストラクタ(左辺と同じである必要はない)
 
 
--- 代数データ型
+-- 代数データ型 data 
 -- 完全に新しい型を作る
 -- 以下の例では`Shape`という型を作っている
 -- 以下のCircle,Rectangleなどを`値コンストラクタ`と呼ぶ
@@ -155,3 +155,22 @@ data Person = Person { firstName:: String
 -- 代数データ型を多層型にする
 -- 座標を表す自作Coord型の座標はIntでもDoubleでもその時時に合わたものにできる
 data Coord a = Coord { getX :: a, getY :: a}
+
+-- 再帰型
+-- 型の定義に自分自身を入れることもできる
+-- ex. 自然数型を定義する
+Prelude> data Nat = Zero | Succ Nat
+Prelude> :t Zero
+Zero :: Nat
+Prelude> :t Succ
+Succ :: Nat -> Nat
+
+-- 多層型と再帰型を組み合わせる
+-- ex. 二分木
+-- Leafは末端、Forkは枝分かれの要素を示す
+data Tree a = Leaf { element :: a }
+            | Fork { element :: a
+                   , left    :: Tree a
+                   , right   :: Tree a
+                   }
+                   

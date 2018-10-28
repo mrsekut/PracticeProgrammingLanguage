@@ -35,3 +35,13 @@ quicksort (x:xs) =
   in quicksort smallerOrEqual ++ [x] ++ quicksort larger
 main = do
   print $ quicksort [2,4,1,7,3,9,6,8,5]
+
+
+-- たらい回し関数(sortとは関係ないが)
+tarai :: Int -> Int -> Int -> Int
+tarai x y z
+    | x <= y    = y
+    | otherwise = tarai 
+                ( tarai ( x - 1) y z)
+                ( tarai ( y - 1) z x)
+                ( tarai ( z - 1) x y)

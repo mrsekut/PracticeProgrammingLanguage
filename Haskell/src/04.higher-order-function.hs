@@ -1,6 +1,12 @@
 -- higher-order function
 -- ==============================
 
+-- 代表的な例
+-- filter
+-- map
+-- zip, zipWith
+-- foldl, foldr
+
 applyTwice :: (a -> a) -> a -> a
 applyTwice f x = f (f x)
 
@@ -42,7 +48,19 @@ sum' :: (Num a) => [a] -> a
 -- sum' xs = foldl (\acc x -> acc + x) 0 xs
 sum' = foldl (+) 0
 
--- 右畳み込み
+-- 右畳み込み foldr
+-- ex
+-- 以下のように計算されている
+-- 1 + 10 * (2 + 10 * (3 + 10 * 4))
+foldr (\a b -> a + 10 * b) 4 [1,2,3] -- > 4321
+
+-- foldrはリストの(:)を関数に、[]を初期値に置換している
+-- 上の例では、[1,2,3]は`1 : 2 : 3 : []`と表せされ、
+-- この`:`をラムダ式`(\a b -> a + 10 * b)`に
+-- `[]`を`4`に置き換えれば同じ寄りになる。
+-- 確認として以下を実行すれば何もしない関数になる
+foldr (:) [] [1,2,3] -- > [1,2,3]
+
 --- foldrを使う
 map' :: (a -> b) -> [a] -> [b]
 map' f xs = foldr (\x acc -> f x : acc) [] xs
