@@ -11,7 +11,7 @@ type Subject struct {
 }
 
 func newSubject(name string) *Subject {
-	return &Subject{name: name, observers: []Observer{}}
+	return &Subject{name, []Observer{}}
 }
 
 func (s *Subject) addObserver(o Observer) {
