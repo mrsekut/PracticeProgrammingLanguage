@@ -20,12 +20,8 @@ func (s *Subject) addObserver(o Observer) {
 
 func (s Subject) notifyObservers() {
 	for _, observer := range s.observers {
-		nObserver(observer)
+		observer.notify()
 	}
-}
-
-func nObserver(n Observer) {
-	n.notify()
 }
 
 // 具象クラス Observer
