@@ -18,14 +18,22 @@ func (s *Subject) addObserver(o Observer) {
 	s.observers = append(s.observers, o)
 }
 
-func (s *Subject) notifyObservers() {
+func (s Subject) notifyObservers() {
 	for _, observer := range s.observers {
-		observer.notify()
+		nObserver(observer)
 	}
+}
+
+func nObserver(n Notify) {
+	n.notify()
 }
 
 // 具象クラス Observer
 // =======================
+
+type Notify interface {
+	notify()
+}
 
 type Observer struct {
 	name string
@@ -35,7 +43,7 @@ func newObserver(name string) *Observer {
 	return &Observer{name: name}
 }
 
-func (o *Observer) notify() {
+func (o Observer) notify() {
 	fmt.Printf("hello! i am %v\n", o.name)
 }
 
