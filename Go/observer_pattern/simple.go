@@ -24,26 +24,26 @@ func (s Subject) notifyObservers() {
 	}
 }
 
-func nObserver(n Notify) {
+func nObserver(n Observer) {
 	n.notify()
 }
 
 // 具象クラス Observer
 // =======================
 
-type Notify interface {
+type Observer interface {
 	notify()
 }
 
-type Observer struct {
+type Child struct {
 	name string
 }
 
-func newObserver(name string) *Observer {
-	return &Observer{name: name}
+func newChild(name string) *Child {
+	return &Child{name: name}
 }
 
-func (o Observer) notify() {
+func (o Child) notify() {
 	fmt.Printf("hello! i am %v\n", o.name)
 }
 
@@ -52,8 +52,8 @@ func (o Observer) notify() {
 
 func main() {
 	s := newSubject("sms")
-	mom := newObserver("mom")
-	gf := newObserver("girlFriend")
+	mom := newChild("mom")
+	gf := newChild("girlFriend")
 
 	s.addObserver(*mom)
 	s.addObserver(*gf)
