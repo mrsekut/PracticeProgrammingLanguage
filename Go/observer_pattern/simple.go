@@ -31,15 +31,15 @@ type Observer interface {
 }
 
 type ConcreteOverserver struct {
-	title string
+	name string
 }
 
-func newObserver(title string) *ConcreteOverserver {
-	return &ConcreteOverserver{title}
+func newObserver(name string) *ConcreteOverserver {
+	return &ConcreteOverserver{name}
 }
 
 func (c ConcreteOverserver) notify() {
-	fmt.Printf("%vさん、ハリポタが発売されました!\n", c.title)
+	fmt.Printf("%vさん、ハリポタが発売されました!\n", c.name)
 }
 
 // main
