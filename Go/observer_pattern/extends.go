@@ -6,12 +6,12 @@ import "fmt"
 // =======================
 
 type Subject struct {
-	name      string
+	title     string
 	observers []Observer
 }
 
-func newSubject(name string) *Subject {
-	return &Subject{name: name, observers: []Observer{}}
+func newSubject(title string) *Subject {
+	return &Subject{title, []Observer{}}
 }
 
 func (s *Subject) addObserver(o Observer) {
@@ -20,7 +20,7 @@ func (s *Subject) addObserver(o Observer) {
 
 func (s Subject) notifyObservers() {
 	for _, observer := range s.observers {
-		observer.notify()
+		observer.notify(s.title)
 	}
 }
 
@@ -28,7 +28,7 @@ func (s Subject) notifyObservers() {
 // =======================
 
 type Observer interface {
-	notify()
+	notify(title string)
 }
 
 type ConcreteOverserver struct {
@@ -36,46 +36,46 @@ type ConcreteOverserver struct {
 }
 
 func newObserver(name string) *ConcreteOverserver {
-	return &ConcreteOverserver{name: name}
+	return &ConcreteOverserver{name}
 }
 
-// 具象クラス Mum,  GirlFriend extends Observer
+// 具象クラス Tarou, Hanako extends Observer
 // =======================
 
-type Mom struct {
+type Tarou struct {
 	*ConcreteOverserver
 }
 
-func newMom() *Mom {
-	return &Mom{newObserver("mom")}
+func newTarou(name string) *Tarou {
+	return &Tarou{newObserver(name)}
 }
 
-func (g Mom) notify() {
-	fmt.Printf("%vは,今帰ったでえ！！\n", g.name)
+func (g Tarou) notify(title string) {
+	fmt.Printf("%vさん、%vが発売されました!\n", g.name, title)
 }
 
-type GirlFriend struct {
+type Hanako struct {
 	*ConcreteOverserver
 }
 
-func newGirlFriend() *GirlFriend {
-	return &GirlFriend{newObserver("Hanako")}
+func newHanako(name string) *Hanako {
+	return &Hanako{newObserver(name)}
 }
 
-func (g GirlFriend) notify() {
-	fmt.Printf("%vは,今帰ったよ\n", g.name)
+func (g Hanako) notify(title string) {
+	fmt.Printf("%vさん、%vが発売されました!\n", g.name, title)
 }
 
 // main
 // =======================
 
 func main() {
-	sms := newSubject("sms")
-	mom := newMom()
-	gf := newGirlFriend()
+	publisher := newSubject("BookA")
+	tarou := newTarou("tarou")
+	hanako := newHanako("hanako")
 
-	sms.addObserver(*mom)
-	sms.addObserver(*gf)
+	publisher.addObserver(*tarou)
+	publisher.addObserver(*hanako)
 
-	sms.notifyObservers()
+	publisher.notifyObservers()
 }
