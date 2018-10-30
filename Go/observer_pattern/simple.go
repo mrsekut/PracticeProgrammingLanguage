@@ -6,12 +6,11 @@ import "fmt"
 // =======================
 
 type Subject struct {
-	name      string
 	observers []Observer
 }
 
-func newSubject(name string) *Subject {
-	return &Subject{name, []Observer{}}
+func newSubject() *Subject {
+	return &Subject{[]Observer{}}
 }
 
 func (s *Subject) addObserver(o Observer) {
@@ -32,27 +31,27 @@ type Observer interface {
 }
 
 type ConcreteOverserver struct {
-	name string
+	title string
 }
 
-func newObserver(name string) *ConcreteOverserver {
-	return &ConcreteOverserver{name}
+func newObserver(title string) *ConcreteOverserver {
+	return &ConcreteOverserver{title}
 }
 
 func (c ConcreteOverserver) notify() {
-	fmt.Printf("hello! i am %v\n", c.name)
+	fmt.Printf("%vさん、ハリポタが発売されました!\n", c.title)
 }
 
 // main
 // =======================
 
 func main() {
-	s := newSubject("sms")
-	mom := newObserver("mom")
-	gf := newObserver("girlFriend")
+	publisher := newSubject()
+	tarou := newObserver("tarou")
+	hanako := newObserver("hanako")
 
-	s.addObserver(*mom)
-	s.addObserver(*gf)
+	publisher.addObserver(*tarou)
+	publisher.addObserver(*hanako)
 
-	s.notifyObservers()
+	publisher.notifyObservers()
 }
