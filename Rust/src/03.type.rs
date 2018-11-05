@@ -38,6 +38,7 @@ fn main() {
     // 2種類の文字列型
 
     // &str
+    // - プリミティブ
     // - 固定長
     // - immutable
     // - 実態はutf-8のバイト列への参照
@@ -232,3 +233,15 @@ struct SingleGen<T>(T)
 // Tに対してジェネリックな関数
 fn generic<T>(_s: SGen<T>){} // 関数定義
 generic::<char>(SGen('a')); // 関数呼び出し
+
+// Vec
+// ========================
+// https://qiita.com/Tamamu/items/6fd8f344cd9b4a20b7c2
+
+// Vecの作成 2種類ある
+let mut vec: Vec<i32> = Vec::new(); // newで作成
+let mut vec_cap: Vec<i32> = Vec::with_capacity(100); // with_capacityで初期サイズを指定して作成
+
+vec.len(); // 要素数
+vec.capacity(); // capサイズ
+
