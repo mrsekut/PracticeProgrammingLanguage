@@ -45,20 +45,17 @@ fn main() {
     // - ""で括った文字列リテラルの宣言は&str型になる
     // - .to_string()でString型にキャスト
     //     - この操作で、新たにヒープ上にメモリが確保される
-    // - 最初に選択するのはこっち
     let string_slice = "hello"; // &strになる
 
     // String(heap-allocated string)
     // - ヒープメモリ上に配置
     // - utf-8の文字列であることが保証される
-    // - 変更可
-    // - .as_str()メソッドによって&str方にキャスト
+    // - immutable
+    // - .as_str()メソッドによって&str型にキャスト
     //     - この操作は参照を取得するだけなので新たなメモリは確保されない
     // - String変数の先頭に`&`を付けても&str型になる
     //   - &をつけるよことによって、変数の参照を取得できる
-    // - 文字列の変更操作が必要に慣ればこっち
     // String型同士の`+`での`文字列の連結はできない
-    // 変数の先頭に`&`を付けると&str型に変換される
     let heep_string = "world".to_string(); // Stringになる
 
     println!("{},{}", string_slice, heep_string)
