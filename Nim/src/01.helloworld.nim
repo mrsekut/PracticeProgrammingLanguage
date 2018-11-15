@@ -1,2 +1,2 @@
-# $ nim c -r hellowolr
+# $ nim c -r helloworld
 echo "hello wolrd!"
