@@ -4,9 +4,7 @@ import { AuthorDetailedList } from './index.d';
 export default class AuthorListDetailedIterator implements AuthorIterator {
   private position = 0;
 
-  constructor(protected authors: AuthorDetailedList[]) {
-    this.authors = authors;
-  }
+  constructor(protected authors: AuthorDetailedList[]) {}
 
   hasNext() {
     return this.position < this.authors.length;
