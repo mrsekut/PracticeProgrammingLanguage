@@ -9,5 +9,9 @@
   },
   "author": "mrsekut",
   "repository": "exec_env",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^10.12.9",
+    "typescript": "^3.1.6"
+  }
 }
