@@ -119,11 +119,11 @@ type K = Double
 
 -- newtype宣言
 -- 既存の型をベースに新しい型を作る
-newtype K = K Double 
+newtype K = K Double
 -- 右辺の`K`はコンストラクタ(左辺と同じである必要はない)
 
 
--- 代数データ型 data 
+-- 代数データ型 data
 -- 完全に新しい型を作る
 -- 以下の例では`Shape`という型を作っている
 -- 以下のCircle,Rectangleなどを`値コンストラクタ`と呼ぶ
@@ -173,4 +173,3 @@ data Tree a = Leaf { element :: a }
                    , left    :: Tree a
                    , right   :: Tree a
                    }
-                   

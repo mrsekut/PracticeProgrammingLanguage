@@ -90,7 +90,7 @@ caseOfFristLetter (x:xs)
 -- caseとifを組み合わせた例
 -- 上の関数の書き直し
 caseOfFristLetter :: String -> String
-caseOfFristLetter str = 
+caseOfFristLetter str =
         case str of
             ""     -> ""
             (x:xs) -> if 'a' <= x && x <= 'z'
@@ -103,7 +103,7 @@ caseOfFristLetter str =
 -- 上の関数の書き直し
 caseOfFristLetter :: String -> String
 caseOfFristLetter str =
-    case str of 
+    case str of
         ""     -> ""
         (x:xs) -> | 'a' <= x && x <= 'z' -> "lower"
                   | 'A' <= x && x <= 'Z' -> "upper"
