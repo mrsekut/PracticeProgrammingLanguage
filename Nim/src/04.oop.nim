@@ -8,10 +8,9 @@ method getName(this: Person): string =
   this.givenName
 
 proc main() =
-  block:
-    let givenName = "Yamada"
-    let name: Person = newPeron(givenName)
-    echo name.getName()
+  let givenName = "Yamada"
+  let name: Person = newPeron(givenName)
+  echo name.getName()
 
 
 when isMainModule:
