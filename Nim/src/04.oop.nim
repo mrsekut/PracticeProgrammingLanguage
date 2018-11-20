@@ -1,16 +1,12 @@
-type Person* = ref object of RootObj
-  givenName*: string
+type Person = ref object of RootObj
+  givenName: string
 
-proc newPeron*(givenName: string): Person =
+proc newPeron(givenName: string): Person =
   Person(givenName: givenName)
 
-method getName(this: Person): string =
-  this.givenName
-
 proc main() =
-  let givenName = "Yamada"
-  let name: Person = newPeron(givenName)
-  echo name.getName()
+  let name: Person = newPeron("yamada")
+  echo name.givenName
 
 
 when isMainModule:
