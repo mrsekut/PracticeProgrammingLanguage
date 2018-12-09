@@ -11,14 +11,29 @@ import algorithm, critbits, future, intsets, lists, macros, math, queues, sequti
 # 入出力
 # ==================
 let m = stdin.readLine()
-# ex. 3\n -> 3
+# ex. 3\n -> "3"
 
 let n = stdin.readLine.parseInt # 一行入力int
 let m = stdin.readLine.split(',') # 区切って入力
-
-let m = stdin.readLine().split().map(parseInt)
+let m = stdin.readLine.split().map(parseInt)
 # ex. 3 4 5\n => @[3, 4, 5]
 
+# 複数行人数字
+let a, b, c = stdin.readLine.parseInt
+# ex.
+# 1\n 2\n 3\n -> a=1, b=2, c=3
+
+
+# sort
+# ==================
+# https://qiita.com/6in/items/61d16b4b86dcd15dedc5#%E3%82%BD%E3%83%BC%E3%83%88
+var ary = @[3,4,1,8,6,5,7,0,1]
+ary.sort(cmp) # 返り値なし
+echo ary
+
+
+# その他
+# ==================
 
 # count
 count("1") # 配列中の`1`の数
@@ -38,6 +53,9 @@ let
 # mapIt
 # filterIt
 
+# Slice
+let a = [1,2,3,4,5]
+a[1..3] # -> [2, 3, 4]
 
 echo x / y # 割り算
 echo x div y # 割り算の商
@@ -49,3 +67,14 @@ echo x xor y # 排他的論理和
 echo (not x) # ビット反転
 echo x shl y # 左シフト
 echo x shr y # 右シフト
+
+
+# 各桁の和を求める
+# 834 を 10 で割った余りは 4 -> 答えに加算
+# 834 を 10 で割って 83
+# 83 を 10 で割った余りは 3 -> 答えに加算
+# 83 を 10 で割って 8
+# 8 を 10 で割った余りは 8 -> 答えに加算
+# 8 を 10 で割って 0
+# 0 なので break
+
