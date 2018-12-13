@@ -125,6 +125,10 @@ newtype K = K Double
 
 -- 代数データ型 data
 -- 完全に新しい型を作る
+
+-- シンプルな例
+data Bool = False | True
+
 -- 以下の例では`Shape`という型を作っている
 -- 以下のCircle,Rectangleなどを`値コンストラクタ`と呼ぶ
 data Shape = Circle Float Float Float |       -- x, y, r
