@@ -4,6 +4,8 @@
 # 全体的に        https://qiita.com/ishowta/items/a4d098191fda0f964c3d
 # コレクション操作 https://qiita.com/6in/items/61d16b4b86dcd15dedc5
 
+テストコード書いたら？？？
+
 # とりあえず全部
 # import system # systemはコンパイルエラーになる(ver 0.13.0)
 import algorithm, critbits, future, intsets, lists, macros, math, queues, sequtils, sets, strutils, tables
@@ -22,6 +24,32 @@ let m = stdin.readLine.split().map(parseInt)
 let a, b, c = stdin.readLine.parseInt
 # ex.
 # 1\n 2\n 3\n -> a=1, b=2, c=3
+
+# n行入力
+# n回stdinするしかないのか？
+# アイディアとしては、このループの中でaddだけでなく、何か次の処理をしてしまってもいいのかも
+var
+  n = stdin.readLine.parseInt()
+  m: seq[int] = @[]
+for i in 0..<n:
+  m.add(stdin.readLine.parseInt)
+
+# set
+# https://nim-lang.org/docs/sets.html
+# ==================
+# 型は set[int], set[char]など
+# 初期化
+import sets
+var s = initSet[int]()
+
+var s = {1,2,2,3} # {1, 2, 3}
+s.incl(4) # 追加
+s.excl(2) # 削除
+s.card() # 要素数
+s.contrains(3) # 3を持っているか
+
+var s = toSet([2, 4, 6]) # 配列をset型に
+
 
 
 # sort
