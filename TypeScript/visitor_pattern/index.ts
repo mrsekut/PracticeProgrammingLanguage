@@ -1,3 +1,4 @@
+// TypeScript
 interface Visitor<N, R> {
   plus: (e1: Expr<N, R>, e2: Expr<N, R>) => R;
   square: (e: Expr<N, R>) => R;
@@ -8,7 +9,6 @@ interface Expr<N, R> {
   accept: (v: Visitor<N, R>) => R;
 }
 
-// 足し算の式
 class Plus<N, R> implements Expr<N, R> {
   constructor(public e1: Expr<N, R>, public e2: Expr<N, R>) {}
 
@@ -17,7 +17,6 @@ class Plus<N, R> implements Expr<N, R> {
   }
 }
 
-// 2乗の式
 class Square<N, R> implements Expr<N, R> {
   constructor(public e: Expr<N, R>) {}
 
@@ -26,7 +25,6 @@ class Square<N, R> implements Expr<N, R> {
   }
 }
 
-// 数値の式
 class Num<N, R> implements Expr<N, R> {
   constructor(public n: N) {}
 
@@ -35,7 +33,6 @@ class Num<N, R> implements Expr<N, R> {
   }
 }
 
-// 式の評価を行うVisitor
 class Eval implements Visitor<number, number> {
   plus(e1: Expr<number, number>, e2: Expr<number, number>): number {
     return e1.accept(this) + e2.accept(this);
@@ -51,10 +48,9 @@ class Eval implements Visitor<number, number> {
   }
 }
 
-// 式に文字列を追加するVisitor
 class Show implements Visitor<number, string> {
   plus(e1: Expr<number, string>, e2: Expr<number, string>): string {
-    return `${e1.accept(this)}+${e2.accept(this)}`;
+    return `${e1.accept(this)} + ${e2.accept(this)}`;
   }
 
   square(e: Expr<number, string>): string {
