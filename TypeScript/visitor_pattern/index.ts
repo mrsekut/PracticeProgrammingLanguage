@@ -1,36 +1,36 @@
-interface Visitor<N, R> {
-  plus: (e1: Expr<N, R>, e2: Expr<N, R>) => R;
-  square: (e: Expr<N, R>) => R;
-  num: (e: N) => R;
+interface Visitor<In, Out> {
+  plus: (e1: Expr<In, Out>, e2: Expr<In, Out>) => Out;
+  square: (e: Expr<In, Out>) => Out;
+  num: (e: In) => Out;
 }
 
-interface Expr<N, R> {
-  accept: (v: Visitor<N, R>) => R;
+interface Expr<In, Out> {
+  accept: (v: Visitor<In, Out>) => Out;
 }
 
 // 足し算の式
-class Plus<N, R> implements Expr<N, R> {
-  constructor(public e1: Expr<N, R>, public e2: Expr<N, R>) {}
+class Plus<In, Out> implements Expr<In, Out> {
+  constructor(public e1: Expr<In, Out>, public e2: Expr<In, Out>) {}
 
-  accept(v: Visitor<N, R>) {
+  accept(v: Visitor<In, Out>) {
     return v.plus(this.e1, this.e2);
   }
 }
 
 // 2乗の式
-class Square<N, R> implements Expr<N, R> {
-  constructor(public e: Expr<N, R>) {}
+class Square<In, Out> implements Expr<In, Out> {
+  constructor(public e: Expr<In, Out>) {}
 
-  accept(v: Visitor<N, R>) {
+  accept(v: Visitor<In, Out>) {
     return v.square(this.e);
   }
 }
 
 // 数値の式
-class Num<N, R> implements Expr<N, R> {
-  constructor(public n: N) {}
+class Num<In, Out> implements Expr<In, Out> {
+  constructor(public n: In) {}
 
-  accept(v: Visitor<N, R>): R {
+  accept(v: Visitor<In, Out>): Out {
     return v.num(this.n);
   }
 }
