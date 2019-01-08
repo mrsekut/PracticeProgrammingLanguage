@@ -39,3 +39,48 @@ var
   y: int8  = int8('a') # 'a' == 97'i8
   z: float = 2.5       # int(2.5)で2に丸められる
   sum: int = int(x) + int(y) + int(z) # sum == 100
+
+
+# Enumerations
+# =============
+
+# カンマはあってもなくても良いっぽい
+type Color = enum
+  Red Green Blue
+
+# 序数の指定も可能(ただし、昇順でないといけない)
+type Hoge = enum
+  a = 1, b = 4, c = 99
+
+echo $Red # Red
+
+# ord[T](x: T): int enum型の序数を返す
+echo ord(Red) # 0
+echo ord(Green) # 1
+
+# inc[T: Ordinal | uint | uint64](x: var T; y = 1): void
+# `y`で指定された分だけ増やす
+var r = Red
+inc(r, 2)
+echo ord(r) # 2
+
+# dec[T: Ordinal | uint | uint64](x: var T; y = 1)
+# `y`で指定された分だけ減らす
+dec(r)
+
+# succ: y個先の要素を返す
+# pred: y個前の要素を返す
+echo succ(Red)    # Green
+echo succ(Red, 2) # Blue
+echo pred(Green)  # Red
+
+
+# {.pure.}
+# どの構造体に属しているのかを記述することを強制する
+type Direction {.pure.} = enum
+     North
+     East
+     South
+     West
+   echo North # error!
+   echo Direction.North # works!
