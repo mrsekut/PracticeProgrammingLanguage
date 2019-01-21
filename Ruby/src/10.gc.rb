@@ -126,3 +126,33 @@ end
 # - Total size: GC後のヒープ合計サイズ。生きているオブジェクトとフリーリストの合計サイズ
 # - Total Object: Rubyオブジェクトの総数。生きているオブジェクトとフリーリスト上のオブジェクトの合計。
 # - GC Time: GCにかかった時間
+
+# Experiment 5 ========================================
+# JRubyのGCの実験
+# 1000000.times do
+#     obj = Object.new
+# end
+
+# output
+# $ jruby -J-verbose:gc 10.gc.rb
+# [0.021s][info][gc] Using G1
+# [0.823s][info][gc] GC(0) Pause Initial Mark (Metadata GC Threshold) 9M->4M(256M) 9.468ms
+# [0.823s][info][gc] GC(1) Concurrent Cycle
+# [0.831s][info][gc] GC(1) Pause Remark 5M->5M(256M) 2.485ms
+# [0.832s][info][gc] GC(1) Pause Cleanup 5M->5M(256M) 0.243ms
+# [0.834s][info][gc] GC(1) Concurrent Cycle 11.082ms
+
+# desc
+# 本と出力が変わっているので、あまり見てない
+# 今回の実験ではminor GCしか起動していない
+
+
+
+# Experiment 6 ========================================
+# Major GCも発生させる
+arr = []
+10000000.times do
+    arr << Object.new
+end
+
+# Major GCも置きている
