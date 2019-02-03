@@ -10,3 +10,7 @@ Nim/**/nimcache/
 # TypeScript
 TypeScript/**/node_modules/
 TypeScript/**/build/
+
+
+# JavsScript
+JavaScript/**/node_modules/
