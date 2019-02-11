@@ -1,0 +1,8 @@
+[package]
+name = "guessing_number"
+version = "0.1.0"
+authors = ["mrsekut <k.cloudspider@gmail.com>"]
+
+[dependencies]
+
+rand = "0.3.14"

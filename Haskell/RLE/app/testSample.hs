@@ -14,3 +14,6 @@ module DoctestSample where
 --
 countSpace :: String -> Int
 countSpace = length . filter (' ' ==)
+
+rle :: String -> String
+rle = undefined

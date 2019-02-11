@@ -10,4 +10,5 @@ module RLE where
 -- "A3B2C4A3"
 
 rle :: String -> String
-rle = undefined
+rle "" = ""
+rle
