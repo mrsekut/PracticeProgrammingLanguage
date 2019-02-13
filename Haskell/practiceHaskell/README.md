@@ -1,0 +1,3 @@
+# practiceHaskell
+
+`$ runhaskell hoge.hs`
