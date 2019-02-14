@@ -178,3 +178,10 @@ main = do
   print $ sum' [4..5]
   print $ product' [1]
   print $ take' 3 [1,2,3,4,5]
+
+
+-- lambda式
+add :: Int -> Int -> Int
+add x y = x + y -- 普通の関数定義
+add = \x -> \y -> x + y -- lambda式版
+add = \x y -> x + y -- 同じくlambda式版
