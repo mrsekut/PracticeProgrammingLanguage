@@ -40,10 +40,29 @@ foldr (-) 0 [1 .. 5] -- 3 (= (1-(2-(3-(4-(5-0)))))
 
 
 
+-- Maybe
+-- //////////////////
+-- ref: https://qiita.com/mtsugawa/items/e410812567e8b5b1690c
 
+isJust :: Maybe a -> Bool
+isNothing :: Maybe a -> Bool
 
+maybe :: b -> (a -> b) -> Maybe a -> b
+catMaybes :: [Maybe a] -> [a]
 
+fromJust :: Maybe a -> a -- Justを剥く。ちょっと無理やりな方法(?)
+fromMaybe :: a -> Maybe a -> a
 
+listToMaybe :: [a] -> Maybe a
+maybeToList :: Maybe a -> [a]
+
+-- Monad
+-- /////////////////////////////////////
+
+replicateM -- actionに使うreplicate
+print =<< replicateM 5 (return 1)
+
+replicateM_
 
 
 -- ///////////////////
