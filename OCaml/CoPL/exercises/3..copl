@@ -1,0 +1,7 @@
+// test
+S(S(Z)) plus Z is S(S(Z)) by P-Succ {
+    S(Z) plus Z is S(Z) by P-Succ {
+        Z plus Z is Z by P-Zero {}
+    }
+}
+

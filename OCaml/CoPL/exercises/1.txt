@@ -1,0 +1,23 @@
+// 1
+Z plus Z is Z by P-Zero {}
+
+// 2
+Z plus S(S(Z)) is S(S(Z)) by P-Zero {}
+
+// 3
+S(S(Z)) plus Z is S(S(Z)) by P-Succ {
+    S(Z) plus Z is S(Z) by P-Succ {
+        Z plus Z is Z by P-Zero {}
+    }
+}
+
+// 9
+S(S(Z)) is less than S(S(S(Z))) by L-Succ {}
+
+// 10
+S(S(Z)) is less than S(S(S(Z))) by L-SuccSucc {
+    S(Z) is less than S(S(Z)) by L-SuccSucc {
+        Z is less than S(Z) by L-Zero {}
+    }
+}
+
