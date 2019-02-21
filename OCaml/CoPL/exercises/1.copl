@@ -1,0 +1,219 @@
+// 1
+Z plus Z is Z by P-Zero {}
+
+// 2
+Z plus S(S(Z)) is S(S(Z)) by P-Zero {}
+
+// 3
+S(S(Z)) plus Z is S(S(Z)) by P-Succ {
+    S(Z) plus Z is S(Z) by P-Succ {
+        Z plus Z is Z by P-Zero {}
+    }
+}
+
+// 4
+S(Z) plus S(S(S(Z))) is S(S(S(S(Z)))) by P-Succ {
+    Z plus S(S(S(Z))) is S(S(S(Z))) by P-Zero {};
+}
+
+// 5
+Z times S(S(Z)) is Z by T-Zero {}
+
+// 6
+S(S(Z)) times Z is Z by T-Succ {
+    S(Z) times Z is Z by T-Succ {
+        Z times Z is Z by T-Zero {};
+        Z plus Z is Z by P-Zero {};
+    };
+    Z plus Z is Z by P-Zero {};
+}
+
+// 7
+S(S(Z)) times S(Z) is S(S(Z)) by T-Succ {
+    S(Z) times S(Z) is S(Z) by T-Succ {
+        Z times S(Z) is Z by T-Zero {};
+        S(Z) plus Z is S(Z) by P-Succ {
+            Z plus Z is Z by P-Zero {};
+        }
+    };
+    S(Z) plus S(Z) is S(S(Z)) by P-Succ {
+        Z plus S(Z) is S(Z) by P-Zero {};
+    };
+};
+
+// 8
+S(S(Z)) times S(S(Z)) is S(S(S(S(Z)))) by T-Succ {
+    S(Z) times S(S(Z)) is S(S(Z)) by T-Succ {
+        Z times S(S(Z)) is Z by T-Zero {};
+        S(S(Z)) plus Z is S(S(Z)) by P-Succ {
+            S(Z) plus Z is S(Z) by P-Succ {
+                Z plus Z is Z by P-Zero {};
+            }
+        }
+    };
+    S(S(Z)) plus S(S(Z)) is S(S(S(S(Z)))) by P-Succ {
+        S(Z) plus S(S(Z)) is S(S(S(Z))) by P-Succ {
+            Z plus S(S(Z)) is S(S(Z)) by P-Zero {};
+        }
+    }
+};
+
+// 9
+S(S(Z)) is less than S(S(S(Z))) by L-Succ {}
+
+// 10
+S(S(Z)) is less than S(S(S(Z))) by L-SuccSucc {
+    S(Z) is less than S(S(Z)) by L-SuccSucc {
+        Z is less than S(Z) by L-Zero {}
+    }
+}
+
+// 11
+S(S(Z)) is less than S(S(S(Z))) by L-Succ {}
+
+// 12
+S(S(Z)) is less than S(S(S(S(S(Z))))) by L-Trans {
+    S(S(Z)) is less than S(S(S(Z))) by L-Succ {};
+    S(S(S(Z))) is less than S(S(S(S(S(Z))))) by L-Trans {
+        S(S(S(Z))) is less than S(S(S(S(Z)))) by L-Succ {};
+        S(S(S(S(Z)))) is less than S(S(S(S(S(Z))))) by L-Succ {};
+    }
+}
+
+// 13
+S(S(Z)) is less than S(S(S(S(S(Z))))) by L-SuccSucc {
+    S(Z) is less than S(S(S(S(Z)))) by L-SuccSucc {
+        Z is less than S(S(S(Z))) by L-Zero {};
+    }
+}
+
+// 14
+S(S(Z)) is less than S(S(S(S(S(Z))))) by L-SuccR {
+    S(S(Z)) is less than S(S(S(S(Z)))) by L-SuccR {
+        S(S(Z)) is less than S(S(S(Z))) by L-Succ {}
+    }
+}
+
+
+
+// 15
+Z + S(S(Z)) evalto S(S(Z)) by E-Plus {
+    Z evalto Z by E-Const {};
+    S(S(Z)) evalto S(S(Z)) by E-Const {};
+    Z plus S(S(Z)) is S(S(Z)) by P-Zero {}
+}
+
+// 16
+S(S(Z)) + Z evalto S(S(Z)) by E-Plus {
+    S(S(Z)) evalto S(S(Z)) by E-Const {};
+    Z evalto Z by E-Const {};
+    S(S(Z)) plus Z is S(S(Z)) by P-Succ {
+        S(Z) plus Z is S(Z) by P-Succ {
+            Z plus Z is Z by P-Zero {}
+        }
+    }
+}
+
+// 17
+S(Z) + S(Z) + S(Z) evalto S(S(S(Z))) by E-Plus {
+    S(Z) + S(Z) evalto S(S(Z)) by E-Plus {
+        S(Z) evalto S(Z) by E-Const {};
+        S(Z) evalto S(Z) by E-Const {};
+        S(Z) plus S(Z) is S(S(Z)) by P-Succ {
+            Z plus S(Z) is S(Z) by P-Zero {};
+        };
+    };
+    S(Z) evalto S(Z) by E-Const {};
+    S(S(Z)) plus S(Z) is S(S(S(Z))) by P-Succ {
+        S(Z) plus S(Z) is S(S(Z)) by P-Succ {
+            Z plus S(Z) is S(Z) by P-Zero {};
+        };
+    };
+}
+
+
+
+// 21
+Z + S(S(Z)) -*-> S(S(Z)) by MR-One {
+    Z + S(S(Z)) ---> S(S(Z)) by R-Plus {
+        Z plus S(S(Z)) is S(S(Z)) by P-Zero {}
+    }
+}
+
+
+// 22
+S(Z) * S(Z) + S(Z) * S(Z) -d-> S(Z) + S(Z) * S(Z) by DR-PlusL {
+    S(Z) * S(Z) -d-> S(Z) by DR-Times {
+        S(Z) times S(Z) is S(Z) by T-Succ {
+            Z times S(Z) is Z by T-Zero {};
+            S(Z) plus Z is S(Z) by P-Succ {
+                Z plus Z is Z by P-Zero {};
+            }
+        };
+    }
+}
+
+// 25
+3 + 5 evalto 8 by E-Plus {
+    3 evalto 3 by E-Int {};
+    5 evalto 5 by E-Int {};
+    3 plus 5 is 8 by B-Plus {};
+};
+
+// 26
+8 - 2 - 3 evalto 3 by E-Minus {
+    8 - 2 evalto 6 by E-Minus {
+        8 evalto 8 by E-Int {};
+        2 evalto 2 by E-Int {};
+        8 minus 2 is 6 by B-Minus {};
+    };
+    3 evalto 3 by E-Int {};
+    6 minus 3 is 3 by B-Minus {};
+};
+
+// 27
+(4 + 5) * (1 - 10) evalto -81 by E-Times {
+    4 + 5 evalto 9 by E-Plus {
+        4 evalto 4 by E-Int {};
+        5 evalto 5 by E-Int {};
+        4 plus 5 is 9 by B-Plus {};
+    };
+    1 - 10 evalto -9 by E-Minus {
+        1 evalto 1 by E-Int {};
+        10 evalto 10 by E-Int {};
+        1 minus 10 is -9 by B-Minus {};
+    };
+    9 times -9 is -81 by B-Times {};
+};
+
+// 28
+if 4<5 then 2 + 3 else 8 * 8 evalto 5 by E-IfT {
+    4 < 5 evalto true by E-Lt {
+        4 evalto 4 by E-Int {};
+        5 evalto 5 by E-Int {};
+        4 less than 5 is true by B-Lt {};
+    };
+    2 + 3 evalto 5 by E-Plus {
+        2 evalto 2 by E-Int {};
+        3 evalto 3 by E-Int {};
+        2 plus 3 is 5 by B-Plus {};
+    };
+};
+
+// 29
+3 + if -23 < -2 * 8 then 8 else 2 + 4 evalto 11 by E-Plus {
+    3 evalto 3 by E-Int {};
+    if -23 < -2 * 8 then 8 else 2 + 4 evalto 8 by E-IfT {
+        -23 < -2 * 8 evalto true by E-Lt {
+            -23 evalto -23 by E-Int {};
+            -2 * 8 evalto -16 by E-Times {
+                -2 evalto -2 by E-Int {};
+                8 evalto 8 by E-Int {};
+                -2 times 8 is -16 by B-Times {};
+            };
+            -23 less than -16 is true by B-Lt {};
+        };
+        8 evalto 8 by E-Int {};
+    };
+    3 plus 8 is 11 by B-Plus {};
+};
