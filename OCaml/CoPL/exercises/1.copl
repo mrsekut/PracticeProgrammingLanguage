@@ -131,7 +131,74 @@ S(Z) + S(Z) + S(Z) evalto S(S(S(Z))) by E-Plus {
     };
 }
 
+// 18
+S(S(S(Z))) + S(S(Z)) * S(Z) evalto S(S(S(S(S(Z))))) by E-Plus {
+    S(S(S(Z))) evalto S(S(S(Z))) by E-Const {};
+    S(S(Z)) * S(Z) evalto S(S(Z)) by E-Times {
+        S(S(Z)) evalto S(S(Z)) by E-Const {};
+        S(Z) evalto S(Z) by E-Const {};
+        S(S(Z)) times S(Z) is S(S(Z)) by T-Succ {
+            S(Z) times S(Z) is S(Z) by T-Succ {
+                Z times S(Z) is Z by T-Zero {};
+                S(Z) plus Z is S(Z) by P-Succ {
+                    Z plus Z is Z by P-Zero {};
+                };
+            };
+            S(Z) plus S(Z) is S(S(Z)) by P-Succ {
+                Z plus S(Z) is S(Z) by P-Zero {};
+            };
+        };
+    };
+    S(S(S(Z))) plus S(S(Z)) is S(S(S(S(S(Z))))) by P-Succ {
+        S(S(Z)) plus S(S(Z)) is S(S(S(S(Z)))) by P-Succ {
+            S(Z) plus S(S(Z)) is S(S(S(Z))) by P-Succ {
+                Z plus S(S(Z)) is S(S(Z)) by P-Zero {};
+            };
+        };
+    };
+};
 
+// 19
+(S(S(Z)) + S(S(Z))) * Z evalto Z by E-Times {
+    S(S(Z)) + S(S(Z)) evalto S(S(S(S(Z)))) by E-Plus {
+        S(S(Z)) evalto S(S(Z)) by E-Const {};
+        S(S(Z)) evalto S(S(Z)) by E-Const {};
+        S(S(Z)) plus S(S(Z)) is S(S(S(S(Z)))) by P-Succ {
+            S(Z) plus S(S(Z)) is S(S(S(Z))) by P-Succ {
+                Z plus S(S(Z)) is S(S(Z)) by P-Zero {};
+            };
+        };
+    };
+    Z evalto Z by E-Const {};
+    S(S(S(S(Z)))) times Z is Z by T-Succ {
+        S(S(S(Z))) times Z is Z by T-Succ {
+            S(S(Z)) times Z is Z by T-Succ {
+                S(Z) times Z is Z by T-Succ {
+                    Z times Z is Z by T-Zero {};
+                    Z plus Z is Z by P-Zero {};
+                };
+                Z plus Z is Z by P-Zero {};
+            };
+            Z plus Z is Z by P-Zero {};
+        };
+        Z plus Z is Z by P-Zero {};
+    };
+};
+
+// 20
+Z * (S(S(Z)) + S(S(Z))) evalto Z by E-Times {
+    Z evalto Z by E-Const {};
+    S(S(Z)) + S(S(Z)) evalto S(S(S(S(Z)))) by E-Plus {
+        S(S(Z)) evalto S(S(Z)) by E-Const {};
+        S(S(Z)) evalto S(S(Z)) by E-Const {};
+        S(S(Z)) plus S(S(Z)) is S(S(S(S(Z)))) by P-Succ {
+            S(Z) plus S(S(Z)) is S(S(S(Z))) by P-Succ {
+                Z plus S(S(Z)) is S(S(Z)) by P-Zero {};
+            };
+        };
+    };
+    Z times S(S(S(S(Z)))) is Z by T-Zero {};
+};
 
 // 21
 Z + S(S(Z)) -*-> S(S(Z)) by MR-One {
@@ -152,6 +219,56 @@ S(Z) * S(Z) + S(Z) * S(Z) -d-> S(Z) + S(Z) * S(Z) by DR-PlusL {
         };
     }
 }
+
+// 23
+S(Z) * S(Z) + S(Z) * S(Z) ---> S(Z) * S(Z) + S(Z) by R-PlusR {
+    S(Z) * S(Z) ---> S(Z) by R-Times {
+        S(Z) times S(Z) is S(Z) by T-Succ {
+            Z times S(Z) is Z by T-Zero {};
+            S(Z) plus Z is S(Z) by P-Succ {
+                Z plus Z is Z by P-Zero {};
+            };
+        };
+    }
+}
+
+// 24
+S(Z) * S(Z) + S(Z) * S(Z) -*-> S(S(Z)) by MR-Multi {
+    S(Z) * S(Z) + S(Z) * S(Z) -*-> S(Z) + S(Z) by MR-Multi {
+        S(Z) * S(Z) + S(Z) * S(Z) -*-> S(Z) + S(Z) * S(Z) by MR-One {
+            S(Z) * S(Z) + S(Z) * S(Z) ---> S(Z) + S(Z) * S(Z) by R-PlusL {
+                S(Z) * S(Z) ---> S(Z) by R-Times {
+                    S(Z) times S(Z) is S(Z) by T-Succ {
+                        Z times S(Z) is Z by T-Zero {};
+                        S(Z) plus Z is S(Z) by P-Succ {
+                            Z plus Z is Z by P-Zero {};
+                        };
+                    };
+                };
+            };
+        };
+        S(Z) + S(Z) * S(Z) -*-> S(Z) + S(Z) by MR-One {
+            S(Z) + S(Z) * S(Z) ---> S(Z) + S(Z) by R-PlusR {
+                S(Z) * S(Z) ---> S(Z) by R-Times {
+                    S(Z) times S(Z) is S(Z) by T-Succ {
+                        Z times S(Z) is Z by T-Zero {};
+                        S(Z) plus Z is S(Z) by P-Succ {
+                            Z plus Z is Z by P-Zero {};
+                        };
+                    };
+                };
+            }
+        };
+    };
+    S(Z) + S(Z) -*-> S(S(Z)) by MR-One {
+        S(Z) + S(Z) ---> S(S(Z)) by R-Plus {
+            S(Z) plus S(Z) is S(S(Z)) by P-Succ {
+                Z plus S(Z) is S(Z) by P-Zero {};
+            };
+        };
+    };
+};
+
 
 // 25
 3 + 5 evalto 8 by E-Plus {
@@ -217,3 +334,94 @@ if 4<5 then 2 + 3 else 8 * 8 evalto 5 by E-IfT {
     };
     3 plus 8 is 11 by B-Plus {};
 };
+
+// 30
+3 + (if -23 < -2 * 8 then 8 else 2) + 4 evalto 15 by E-Plus {
+    3 + (if -23 < -2 * 8 then 8 else 2) evalto 11 by E-Plus {
+        3 evalto 3 by E-Int {};
+        if -23 < -2*8 then 8 else 2 evalto 8 by E-IfT {
+            -23 < -2*8 evalto true by E-Lt {
+                -23 evalto -23 by E-Int {};
+                -2 * 8 evalto -16 by E-Times {
+                    -2 evalto -2 by E-Int {};
+                    8 evalto 8 by E-Int {};
+                    -2 times 8 is -16 by B-Times {};
+                };
+                -23 less than -16 is true by B-Lt {};
+            };
+            8 evalto 8 by E-Int {};
+        };
+        3 plus 8 is 11 by B-Plus {};
+    };
+    4 evalto 4 by E-Int {};
+    11 plus 4 is 15 by B-Plus {};
+};
+
+// 34
+x=3, y=2 |- x evalto 3 by E-Var2 {
+    x=3 |- x evalto 3 by E-Var1 {};
+};
+
+// 35
+x=true, y=4 |- if x then y+1 else y-1 evalto 5 by E-IfT {
+    x=true, y=4 |- x evalto true by E-Var2 {
+        x = true |- x evalto true by E-Var1 {};
+    };
+    x=true, y=4 |- y+1 evalto 5 by E-Plus {
+        x=true, y=4 |- y evalto 4 by E-Var1 {};
+        x=true, y=4 |- 1 evalto 1 by E-Int {};
+        4 plus 1 is 5 by B-Plus {};
+    }
+};
+
+// 36
+|- let x = 1 + 2 in x * 4 evalto 12 by E-Let {
+    |- 1 + 2 evalto 3 by E-Plus {
+        |- 1 evalto 1 by E-Int {};
+        |- 2 evalto 2 by E-Int {};
+        1 plus 2 is 3 by B-Plus {};
+    };
+    x=3 |- x*4 evalto 12 by E-Times {
+        x=3 |- x evalto 3 by E-Var1 {};
+        x=3 |- 4 evalto 4 by E-Int {};
+        3 times 4 is 12 by B-Times {};
+    };
+};
+
+
+// 40
+|- fun x -> x + 1 evalto ()[fun x -> x + 1] by E-Fun {};
+
+// 41
+ |- let y=2 in fun x -> x + y evalto (y=2)[fun x -> x + y] by E-Let {
+    |- 2 evalto 2 by E-Int {};
+    y=2 |- fun x->x+y evalto (y=2)[fun x->x+y] by E-Fun {};
+};
+
+// 42★
+|- let sq = fun x -> x * x in sq 3 + sq 4 evalto 25 by E-Let {
+    |- fun x -> x * x evalto ()[fun x -> x * x] by E-Fun {};
+    sq=()[fun x->x*x] |- sq 3 + sq 4 evalto 25 by E-Plus {
+        sq=()[fun x->x*x] |- sq 3 evalto 9 by E-App {
+            sq=()[fun x->x*x] |- sq evalto ()[fun x -> x*x] by E-Var1 {};
+            sq=()[fun x->x*x] |- 3 evalto 3 by E-Int {};
+            x=3 |- x * x evalto 9 by E-Times {
+                x=3 |- x evalto 3 by E-Var1 {};
+                x=3 |- x evalto 3 by E-Var1 {};
+                3 times 3 is 9 by B-Times {};
+            }
+        };
+        sq=()[fun x->x*x] |- sq 4 evalto 16 by E-App {
+            sq=()[fun x->x*x] |- sq evalto ()[fun x -> x*x] by E-Var1 {};
+            sq=()[fun x->x*x] |- 4 evalto 4 by E-Int {};
+            x=4 |- x * x evalto 16 by E-Times {
+                x=4 |- x evalto 4 by E-Var1 {};
+                x=4 |- x evalto 4 by E-Var1 {};
+                4 times 4 is 16 by B-Times {};
+            }
+        };
+        9 plus 16 is 25 by B-Plus {};
+    };
+};
+
+// 43やるまえに42の復習したほうがいい
