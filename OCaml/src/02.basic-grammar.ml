@@ -68,4 +68,29 @@ let vol_cone =                     (* 大域変数 *)
     let base = pi *. 2.0 *. 2.0 in (* 局所変数 *)
     base *. 5.0 /. 3.0;;
 
-(* 2つの引数を取る関数 *)
+(* 複数の引数を取る関数 *)
+let ave (x, y) = (x +. y) /. 2.0;;
+ave (2.5, 3.4);; (* - : float = 2.95 *)
+
+(* 複数の値を返す関数 *)
+let sum_and_diff (x, y) = (x + y, x - y);;
+sum_and_diff(3, 9);;
+
+(* 再帰
+ * letのあとに`rec`をつけて、再帰であることを示す
+ *)
+let rec fact n =
+    if n = 1 then 1 else fact (n-1) * n;;
+fact 4;; (* - : int = 24 *)
+
+(* match式 *)
+let isVeggie f =
+    match f with
+        Shake -> false
+    | Katsuo -> false
+    | Nori -> true
+    ;;
+
+let prime f = match n with
+    2 | 3 | 5 | 7 | 11 | 13 | 17 | 19 -> true
+  | _ -> false
