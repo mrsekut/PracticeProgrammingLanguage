@@ -357,6 +357,34 @@ if 4<5 then 2 + 3 else 8 * 8 evalto 5 by E-IfT {
     11 plus 4 is 15 by B-Plus {};
 };
 
+// 31
+1 + true + 2evalto error by E-PlusErrorL {
+    1 + true evalto error by E-PlusBoolR {
+        true evalto true by E-Bool {};
+    }
+}
+
+// 32
+if 2+3 then 1 else 3 evalto error by E-IfInt {
+    2 + 3 evalto 5 by E-Plus {
+        2 evalto 2 by E-Int {};
+        3 evalto 3 by E-Int {};
+        2 plus 3 is 5 by B-Plus {};
+    };
+};
+
+// 33
+if 3<4 then 1<true else 3-false evalto error by E-IfTError {
+    3<4 evalto true by E-Lt {
+        3 evalto 3 by E-Int {};
+        4 evalto 4 by E-Int {};
+        3 less than 4 is true by B-Lt {};
+    };
+    1<true evalto error by E-LtBoolR {
+        true evalto true by E-Bool {};
+    };
+};
+
 // 34
 x=3, y=2 |- x evalto 3 by E-Var2 {
     x=3 |- x evalto 3 by E-Var1 {};
@@ -541,7 +569,7 @@ x=true, y=4 |- if x then y+1 else y-1 evalto 5 by E-IfT {
     }
 }
 
-// 73
+// 72
 |- let rec f = fun x -> if x < 1 then [] else x :: f (x - 1) in f 3 evalto 3 :: 2 :: 1 :: [] by E-LetRec {
     f=()[rec f = fun x -> if x < 1 then [] else x :: f (x - 1)] |- f 3 evalto 3 :: 2 :: 1 :: [] by E-AppRec {
         f=()[rec f = fun x -> if x < 1 then [] else x :: f (x - 1)] |- f evalto ()[rec f = fun x -> if x < 1 then [] else x :: f (x - 1)] by E-Var {};
@@ -764,4 +792,34 @@ x:bool, y:int |- if x then y+1 else y-1: int by T-If {
         };
         k:int->bool->int |- true: bool by  T-Bool {};
     };
+};
+
+// 93
+|- let k = fun x -> fun y -> x in k (1::[]) 3: int list by T-Let {
+     |-fun x -> fun y -> x: int list -> int -> int list by T-Fun {
+        x: int list |- fun y -> x: int -> int list by T-Fun {
+            x:int list, y:int |- x: int list by T-Var {};
+        }
+    };
+    k: int list -> int -> int list |- k (1::[]) 3: int list by T-App {
+        k: int list -> int -> int list |- k (1::[]): int -> int list by T-App {
+            k: int list -> int -> int list |- k: int list -> int -> int list by T-Var{};
+            k: int list -> int -> int list |- 1 :: []: int list by T-Cons {
+                k: int list -> int -> int list |- 1: int by T-Int {};
+                k: int list -> int -> int list |- []: int list by T-Nil {};
+            };
+        };
+        k: int list -> int -> int list |- 3: int by T-Int {};
+    };
+};
+
+ // 107
+|- fun x -> x: 'a -> 'a by T-Abs {
+    x:'a |- x: 'a by T-Var {};
+};
+
+// 108
+f:'a.'a->'a |-f 3: int by T-App {
+    f:'a.'a->'a |- f: int -> int by T-Var {};
+    f:'a.'a->'a |- 3: int by T-Int {};
 };
