@@ -1,4 +1,4 @@
-Repository for studying programming languages
+## Repository for studying programming languages
 
 ### Languages that I have done hello world
 
