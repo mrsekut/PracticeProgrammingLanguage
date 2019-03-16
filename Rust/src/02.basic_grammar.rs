@@ -179,6 +179,7 @@ struct VendingMachine {
 // 実態を追加するために`impl`をStructに対し付加する
 impl VendingMachine {
     fn new() -> VendingMachine {
+        // static method. `self`を引数に取らない
         // VendingMachineのインスタンスを返す
         VendingMachine {
             drinks: Vec::new(), // `Vec::new()`で空のベクターを作製
@@ -192,6 +193,10 @@ impl VendingMachine {
         self.drinks.push(drink);
     }
 }
+
+
+// Generics
+
 
 // Car構造体にDropというトレイトを実装
 // `for`を使う
