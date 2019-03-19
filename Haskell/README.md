@@ -1,0 +1,3 @@
+## Run
+
+`$ runhaskell hoge.hs`

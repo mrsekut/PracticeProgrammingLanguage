@@ -61,6 +61,15 @@ allPM0s n = do
     plusMinus 0 x
 allPM0s :: Integer -> Integer -> [Integer]
 
+
+-- ループ
+import Control.Monad
+main = do
+    print $ join $
+        forM [1,2,3] $ \x ->
+            return $ x * 2
+
+
 -- ((->) r) モナド
 -- ////////////////////
 -- r 型の値を適用して初めて、結果が取り出せるような結果である

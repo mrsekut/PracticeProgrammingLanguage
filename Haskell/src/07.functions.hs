@@ -58,11 +58,17 @@ maybeToList :: Maybe a -> [a]
 
 -- Monad
 -- /////////////////////////////////////
+-- ref: https://qiita.com/7shi/items/4a8a2807bb5186576c61
 
 replicateM -- actionに使うreplicate
 print =<< replicateM 5 (return 1)
 
-replicateM_
+replicateM_ -- actionから取り出した値を捨てるreplicateM
+rofM
+forM_
+
+when -- `when 条件 action`
+unless
 
 
 -- ///////////////////
