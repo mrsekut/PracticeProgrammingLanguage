@@ -10,19 +10,23 @@ import           Data.Char
 
 
 parseTest p s = case p s of
-    Just (r, _) -> print r
-    n           -> print n
+    Right (r, _) -> print r
+    Left  e      -> putStrLn $ "[" ++ show s ++ "]" ++ e
 
 
-anyChar (x : xs) = Just (x, xs)
-anyChar _        = Nothing
+anyChar (x : xs) = Right (x, xs)
+anyChar _        = Left "too short"
 
-satisfy f (x : xs) | f x = Just (x, xs)
-satisfy _ _              = Nothing
+satisfy f (x : xs) | not $ f x = Left $ " : " ++ show x
+satisfy f xs                   = anyChar xs
 
-char c = satisfy (== c)
-digit = satisfy isDigit
-letter = satisfy isLetter
+Left a <|> Left b = Left $ b ++ a
+Left _ <|> b      = b
+a      <|> _      = a
+
+char c xs = satisfy (== c) xs <|> Left ("not char" ++ show c)
+digit xs = satisfy isDigit xs <|> Left ("not digit")
+letter xs = satisfy isLetter xs <|> Left "not letter"
 
 
 test1 xs0 = do
