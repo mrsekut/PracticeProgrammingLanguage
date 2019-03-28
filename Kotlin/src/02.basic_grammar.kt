@@ -32,17 +32,17 @@ when(num) {
     else -> println("other")
 }
 
-// while
-while (i < 10){
-    println("loop: $i")
-    i++
-}
+// // while
+// while (i < 10) {
+//     println("loop: $i")
+//     i++
+// }
 
 // do..while
-do {
-    println("loop2: $i")
-    i++
-} while (i < 10)
+// do {
+//     println("loop2: $i")
+//     i++
+// } while (i < 10)
 
 // for
 // break, continueあり
@@ -59,137 +59,12 @@ fun sayHi(name: String = "初期値", age: Int): String{
 // 関数内部の処理が1行のときはこんなふうにも宣言できる
 fun sayHi(): String = "Hi" // 型推論により型は省略可
 
-// Class
-// ========================================
-// Userクラスを継承する子クラス
-class AdminUser(name: String): User(name){
-    fun sayHello() {
-        println("hello $name")
-    }
 
-    override fun over() {
-        println("child")
-    }
-
-}
-
-// 親クラス
-open class User(var name: String) {  // コンストラクタ引数
-    var team = "red" // プロパティ
-
-    // 初期化処理。construtor?
-    init { 
-        println("instance created, name: $name")
-    }
-
-
-    fun sayHi() { // method
-        println("hi ${name}") // 自明の場合はthis省略可
-    }
-
-    open fun over() {
-        println("parent")
-    }
-}
-
-
-fun main(args: Array<String>) {
-    val user = User("parent") // インスタンス作成
-    user.sayHi()
-    user.over()
-
-
-    val admin = AdminUser("child")
-    admin.sayHello()
-    admin.over()
-}
-
-// アクセス修飾子
-
-// - public
-// - protected
-// - private
-
-// 拡張
-// クラスを継承しなくても拡張してメソッドの追加などができる
-fun User.sayHello(){
-    println("hello $name")
-}
-
-
-// 抽象クラス
-abstract class AbsUser { 
-    abstract fun sayHi()
-}
-
-// 具象クラス
-class Japanese: AbsUser() {
-    override fun sayHi() {
-        println("こんにちは")
-    }
-}
-
-
-class American: AbsUser() {
-    override fun sayHi() {
-        println("hello")
-    }
-}
-
-fun main(args: Array<String>) {
-    val tarou = Japanese()
-    val tom = American()
-
-    tarou.sayHi()
-    tom.sayHi()
-}
-
-
-// interface
-
-interface Sharable {
-    // 抽象プロパティ
-    var version: Double 
-    // 抽象メソッド
-    fun share()
-    // メソッド
-    fun getInfo() {
-        println("share $version")
-    }
-}
-
-// interfaceの実装
-class User: Sharable{
-    override var version = 1.1
-    override fun share() {
-        println(("share"))
-    }
-}
-
-// generics
-class  MyData<T> {
-    fun getThree(x: T){
-        println(x)
-        println(x)
-        println(x)
-    }
-}
-
-// data class
-data class Point(val x: Int, val y: Int)
-
-fun main(args: Array<String>) {
-    val p1 = Point(3,5)
-    val p2 = Point(3,5)
-    println(p1)
-    println(if (p1 == p2) "same" else "not same")
-}
-
-// Collection 
+// Collection
 // =========================
 // それぞれimmutable/mutableとある
 
-// - List(配列) 
+// - List(配列)
 val imList: List<Int> = listOf(20,30,40)
 val muList: List<Int> = mutableListOf(20,30,40) // 変更可
 println(imList[1])
