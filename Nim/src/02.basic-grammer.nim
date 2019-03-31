@@ -142,19 +142,6 @@ echo sumTillNegative(3, 4, -1, 6)
 #
 # p(3,4)
 
-# proc even(n: int): bool # 定義するためにコンパイラにevenの存在を知らせる
-# proc odd(n: int): bool =
-#   assert(n >= 0)
-#   if n == 0: false
-#   else:
-#     n == 1 or even(n-1)
-#
-# proc even(n: int): bool =
-#   assert(n >= 0)
-#   if n == 1: false
-#   else:
-#     n == 0 or odd(n-1)
-
 # echo "Counting to ten:"
 # for i in countup(1,10):
 #   echo $i
@@ -168,35 +155,6 @@ echo sumTillNegative(3, 4, -1, 6)
 # while p != nil and p.name != "xyz":
 #   p = p.next
 
-# var
-#   x: int32 = 1.int32
-#   y: int8 = int8('a')
-#   z: float = 2.5
-#   sum: int = int(x) + int(y) + int(z)
-
-# type
-#   biggestInt = int64
-#   biggestFloat = float64
-
-
-# type
-#   Direction = enum
-#     north, east, south, west
-#
-# var x = south
-# echo $x
-
-# var num = 10
-#
-# echo ord(num)
-# echo inc(num)
-# echo inc(num, 5)
-# echo dec(num)
-# echo dec(num, 5)
-# echo succ(num)
-# echo succ(num, 5)
-# echo pred(num)
-# echo pred(num, 5)
 
 # type
 #   MySubrange = range[0..5]

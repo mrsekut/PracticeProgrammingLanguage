@@ -14,6 +14,15 @@ echo min[int](2, 3) # more explicitly: min[int](2, 3)
 # template
 # ================
 
+# 使用例 関数の生成
+# 「タグを出力する関数」を定義するtemplate
+template htmlTag(tag): untyped =
+  proc tag(): string = "<" & astToStr(tag) & ">"
+
+htmlTag(br) # br()関数が作成される
+echo br() # <br>
+
+
 # macros
 # ================
 import macros
