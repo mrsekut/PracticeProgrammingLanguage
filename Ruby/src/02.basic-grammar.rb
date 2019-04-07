@@ -128,7 +128,6 @@ class Menu
     self.price = price
   end
 
-    
   # method
   def info
     return "#{self.name} #{self.price}円"
