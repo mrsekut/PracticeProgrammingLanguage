@@ -79,6 +79,6 @@ rulebook.next_state(1, 'b')
 
 # 何度実行しても初期状態から始める
 dfa_design = DFADesign.new(1, [3], rulebook)
-dfa_design.accepts('a')     # false
-dfa_design.accepts('baba')  # true
+dfa_design.accepts?('a')     # false
+dfa_design.accepts?('baba')  # true
 
