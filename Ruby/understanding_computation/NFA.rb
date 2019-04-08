@@ -16,10 +16,10 @@ class NFARulebook < Struct.new(:rules)
     end
 
     # 与えられた状態の集合の中から自由移動で到達可能な状態を再帰的に探す
-    def follow_free_moves(status)
+    def follow_free_moves(states)
         more_status = next_states(states, nil)
-        if move_states.subset?(states)
-            states
+        if more_status.subset?(states)
+           states
         else
             follow_free_moves(states + more_status)
         end
