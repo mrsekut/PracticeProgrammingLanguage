@@ -60,11 +60,11 @@ class Literal
     # NFADesignに変換する
     def to_nfa_design
         start_state = Object.new
-        accespt_state = Object.new
-        rule = DFA::FARule.new(start_state, character, accespt_state)
+        accept_state = Object.new
+        rule = DFA::FARule.new(start_state, character, accept_state)
         rulebook = DFA::NFARulebook.new([rule])
 
-        NFA::NFADesign.new(start_state, [accespt_state], rulebook)
+        NFA::NFADesign.new(start_state, [accept_state], rulebook)
     end
 end
 
@@ -88,7 +88,7 @@ class Concatenate < Struct.new(:first, :second)
         start_state = first_nfa_design.start_state
         accept_states = second_nfa_design.accept_states
         rules = first_nfa_design.rulebook.rules + second_nfa_design.rulebook.rules
-        extra_rules = first_nfa_design.accespt_state.map { |state|
+        extra_rules = first_nfa_design.accept_state.map { |state|
             DFA::FARule.new(state, second_nfa_design.start_state)
         }
 
@@ -136,6 +136,22 @@ class Repeat < Struct.new(:pattern)
     def precedence
         2
     end
+
+    def to_nfa_design
+        pattern_nfa_design = pattern.to_nfa_design
+
+        start_state = Object.new
+        accept_states = pattern_nfa_design.accept_states + [start_state]
+        rules = pattern_nfa_design.rulebook.rules
+        extra_rules =
+            pattern_nfa_design.accept_states.map { |accept_states|
+                DFA::FARule.new(accept_states, nil, pattern_nfa_design.start_state)
+            } +
+            [FARule.new(start_state, nil, pattern_nfa_design.start_state)]
+        rulebook = NFA::NFARulebook.new(rules + extra_rules)
+
+        NFA::NFADesign.new(start_state, accept_states, rulebook)
+    end
 end
 
 # pattern =
@@ -153,6 +169,14 @@ end
 #         Concatenate.new(Literal.new('b'), Literal.new('c'))
 #     )
 
-# a|b
-pattern = Choose.new(Literal.new('a'), Literal.new('b'))
-pattern.matches?('a')
+# # a|b
+# pattern = Choose.new(Literal.new('a'), Literal.new('b'))
+# pattern.matches?('a')
+
+# a*
+pattern = Repeat.new(
+    Concatenate.new(
+        Literal.new('a'),
+        Choose.new(Empty.new, Literal.new('b'))
+    )
+)
