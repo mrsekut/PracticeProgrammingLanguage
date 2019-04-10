@@ -1,0 +1,35 @@
+ToBase[n_, b_] := Module[{a = {}, q, r},
+    {q, r} = QuotientRemainder[n, b];
+    PrependTo[a, r];
+    While[q != 0,
+        {q, r} = QuotientRemainder[q, b];
+        Print[a > 10];
+        If[a[[1]] >= 10,
+            a = FromCharacterCode[{a + 55}];
+            a = a
+        ];
+        PrependTo[a, r];
+    ];
+    Return[{a, b}];
+];
+
+ToBase10[x_] := Module[{m = 0, result = 0, n, b, l, y},
+   n = x[[1]];
+   b = x[[2]];
+   l = Length[n];
+   While[l != 0,
+    l = l - 1;
+    m = m + 1;
+    If[NumericQ[n[[m]]],
+     y = n[[m]],
+     y = ToCharacterCode[n[[m]]][[1]] - 55
+     ];
+    result = result + y* b^l;
+    ];
+   Return[result];
+
+   ];
+
+ChangeBase[x_, b1_] := Module[{},
+   Return[ToBase[ToBase10[x], b1]];
+   ];

@@ -1,4 +1,6 @@
 (* 拡張ユークリッドの互除法 行列版 *)
+(* ref: http://ashiato45.hatenablog.jp/entry/2018/11/04/172848 *)
+
 myExGCD2[a_, b_] := Module[{r, q, mx},
     {q, a2} = QuotientRemainder[a, b];
     mx = {{q, 1}, {1, 0}};

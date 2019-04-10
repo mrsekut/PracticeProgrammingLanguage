@@ -1,0 +1,12 @@
+(* 引数の値を2進数にして返す *)
+(* Bin[10] > {1, 0, 1, 0} *)
+Bin[m_] := Module[{b, q, r},
+    b = {};
+    {q, r} = QuotientRemainder[m, 2];
+    PrependTo[b, r];
+    While[q != 0,
+        {q, r} = QuotientRemainder[q, 2];
+        PrependTo[b, r];
+    ];
+    Return[b];
+];
