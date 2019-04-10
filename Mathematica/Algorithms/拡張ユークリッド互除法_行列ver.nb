@@ -1,0 +1,13 @@
+(* 拡張ユークリッドの互除法 行列版 *)
+myExGCD2[a_, b_] := Module[{r, q, mx},
+    {q, a2} = QuotientRemainder[a, b];
+    mx = {{q, 1}, {1, 0}};
+    a1 = b;
+    While[a2 != 0,
+        a0 = a1;
+        a1 = a2;
+        {q, a2} = QuotientRemainder[a0, a1];
+        mx = mx.{{q, 1}, {1, 0}};
+    ];
+    Return[{Inverse[mx].{a, b}}[[1, 1]]];
+]
