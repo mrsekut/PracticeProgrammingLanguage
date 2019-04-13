@@ -1,35 +1,141 @@
-ToBase[n_, b_] := Module[{a = {}, q, r},
-    {q, r} = QuotientRemainder[n, b];
-    PrependTo[a, r];
-    While[q != 0,
-        {q, r} = QuotientRemainder[q, b];
-        Print[a > 10];
-        If[a[[1]] >= 10,
-            a = FromCharacterCode[{a + 55}];
-            a = a
-        ];
+(* 数値→英数字 *)
+Num2CharNum[n_] := Module[{r = 0},
+    If[n >= 36,
+        Print["Error: Input value shouldbe 35 or less."];
+        Abort[],
+        If[n >= 10, r = FromCharacterCode[{n + 55}], r = n];
+        Return[r];
+    ];
+];
+
+(* nをb進数にする *)
+ToBase[n_, b_] := Module[{a = {}, q0 = n, r, q1},
+    While[q0 != 0,
+        {q1, r} = QuotientRemainder[q0, b];
+        r = Num2CharNum[r];
         PrependTo[a, r];
+        q0 = q1
     ];
     Return[{a, b}];
 ];
 
 ToBase10[x_] := Module[{m = 0, result = 0, n, b, l, y},
-   n = x[[1]];
-   b = x[[2]];
-   l = Length[n];
-   While[l != 0,
-    l = l - 1;
-    m = m + 1;
-    If[NumericQ[n[[m]]],
-     y = n[[m]],
-     y = ToCharacterCode[n[[m]]][[1]] - 55
-     ];
-    result = result + y* b^l;
+    n = x[[1]];
+    b = x[[2]];
+    l = Length[n];
+    While[l != 0,
+        l = l - 1;
+        m = m + 1;
+        y = CharNum2Num[n[[m]]];
+        result = result + y* b^l;
     ];
-   Return[result];
-
-   ];
+    Return[result];
+];
 
 ChangeBase[x_, b1_] := Module[{},
-   Return[ToBase[ToBase10[x], b1]];
-   ];
+    Return[ToBase[ToBase10[x], b1]];
+];
+
+(* 足し算, 逐次的 *)
+
+BasePlus[x_, y_] := Module[{l = 0, result = {}, flg = 0, baseNum = x[[2]], nx, ny, sum, x1, y1, lx, ly},
+    If[x[[2]] != y[[2]], Return[{}],
+        x1 = x[[1]]; y1 = y[[1]];
+        lx = Length[x1]; ly = Length[y1];
+
+        (* 桁数の大きい方をlとする *)
+        If[lx > ly, l = lx, l = ly];
+        l = l + 1;
+
+        (* l+1桁になるように0 padding *)
+        x1 = PadLeft[x1, l];
+        y1 = PadLeft[y1, l];
+        While[l != 0 ,
+            nx = CharNum2Num[x1[[l]]];
+            ny = CharNum2Num[y1[[l]]];
+            sum = nx + ny + flg;
+            If[sum >= baseNum,
+                sum = sum - baseNum;
+                flg = 1,
+                flg = 0
+            ];
+            PrependTo[result, Num2CharNum[sum]];
+            l = l - 1;
+        ];
+
+        (* 不要な0をsupressing *)
+
+        While[result[[1]] == 0, result = Delete[result, 1]];
+        Return[result];
+    ];
+];
+
+
+
+
+BaseMultiply[x_, y_] := Module[{child = {}, parent = {}, result = {}, baseNum = x[[2]], flg0 = 0, flg1 = 0},
+    If[x[[2]] != y[[2]], Return[{}]];
+        x1 = x[[1]]; y1 = y[[1]];
+        lx = Length[x1]; ly = Length[y1];
+        j = ly;
+        While[j != 0,
+            i = lx;
+            child = {};
+            (*1桁*n桁の掛け算*)
+            While[i != 0,
+                nx = ToBase10[{{x1[[i]]}, baseNum}];
+                ny = ToBase10[{{y1[[j]]}, baseNum}];
+                mul = nx*ny;
+                mul = ToBase[mul, baseNum][[1]];
+                mul = BasePlus[{mul, baseNum}, {{flg0}, baseNum}];
+
+                If[Length[mul] > 1, flg1 = mul[[;; -2]], flg1 = {0}];
+                m = mul[[-1 ;;]][[1]];
+                {flg2, m} = QuotientRemainder[m, baseNum];
+                PrependTo[child, Num2CharNum[m]];
+                i = i - 1;
+                flg0 = BasePlus[{flg1, baseNum}, {{flg2}, baseNum}][[1]];
+            ];
+            (* 最上位の桁のとき、最後の繰り上がりがあれば追加する *)
+            If[flg0 != 0,
+                PrependTo[child, flg0];
+                flg0 = 0
+            ];
+            add0 = ly - j;
+            While[add0 != 0,
+                AppendTo[child, 0];
+                add0 = add0 - 1
+            ];
+            PrependTo[parent, {child, baseNum}];
+            j = j - 1;
+        ];
+            (*リストをBasePlusを使って和算する*)
+        If[Length[parent] == 1,
+            result = parent[[1]][[1]],
+            result = Fold[BasePlus, parent];
+        ];
+    Return[result];
+];
+
+
+BaseDivide[x_, y_] := Module[{a, b, c, d, e = x[[2]], f = y[[2]], g, h, i, j, k},
+    If[e == f, , Print["Error"]; Return[Null]];
+    a = ToBase10[x];
+    b = ToBase10[y];
+    {c, d} = QuotientRemainder[a, b];
+    g = ToBase[c, e];
+    h = ToBase[d, e];
+    i = g[[1]];
+    j = h[[1]];
+    k = {i, j, e}
+]
+
+
+For[i = 1, i <= 100, i++,
+    n = RandomInteger[100] + 50;
+    m = RandomInteger[{1, 50}];
+    {q, r} = QuotientRemainder[n, m];
+    a = ToBase[q, 17];
+    b = ToBase[r, 17];
+    Print[a, b]
+]
