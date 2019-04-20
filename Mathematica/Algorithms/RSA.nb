@@ -1,0 +1,18 @@
+RSAKey[a_, b_] := Module[{p, q, n, e, d, k, i, pqTimes},
+	p = NextPrime[a];
+	q = NextPrime[b];
+	pqTimes = (p - 1)*(q - 1);
+	n = p*q;
+	e = RandomInteger[10000];
+	While[! CoprimeQ[pqTimes, e],
+		e = RandomInteger[100000];
+	];
+
+	k = ExGCD[pqTimes, e][1];
+	d = 0;
+	While[k != 1,
+		k = ExGCD[pqTimes, e*d][[1]];
+		d++
+	];
+	Print[d];
+]
