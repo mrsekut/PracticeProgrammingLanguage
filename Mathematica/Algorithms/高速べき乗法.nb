@@ -1,0 +1,13 @@
+(* 高速べき乗法*)
+(* 未完成? *)
+FPower[a_, m_, n_] := Module[{ans, arr, i},
+    ans = 1;
+    arr = Bin[n];
+    For[i = Length[arr], i > 0, i--,
+        ans = Mod[ans^2, n];
+        If[arr[[i]] == 1,
+            ans = Mod[ans*a, n];
+        ]
+    ]
+    Print[ans];
+]

@@ -1,5 +1,5 @@
 (* 位数を返す関数 *)
-Reidai2no5[n_, a_] := Module[{k},
+ofOrder[n_, a_] := Module[{k},
     If[GCD[n, a] != 1, Return[]];
     For[k = 1, k <= n, k++,
         If[PowerMod[a, k, n] == 1, Return[k]]
@@ -10,7 +10,7 @@ Reidai2no5[n_, a_] := Module[{k},
 myPrimitiveRoot[n_] := Module[{ans = {}, a},
     If[PrimeQ[n],
         For[a = 2, a <= n, a++,
-            If[Reidai2no5[n, a] == n - 1,
+            If[ofOrder[n, a] == n - 1,
                 ans = Append[ans, a]
             ];
         ];

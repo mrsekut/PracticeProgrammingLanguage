@@ -1,0 +1,24 @@
+(* 分数に対するmod演算 *)
+fractionMod[a_, n_] := Module[{r},
+    r = Mod[Numerator[a]*PowerMod[Denominator[a], -1, n], n];
+    Return[r];
+];
+
+(* 合同方程式 *)
+FindSolModEqSystem[a_, b_, m_] := Module[{ans = 0},
+    If[Length[Union[Map[Length, {a, b, m}]]] != 1,Print["error: 引数の配列の長さが異なる"]; Return[-1]];
+    If[! Apply[CoprimeQ, m], Print["error: mの中身が互いに素でない"]; Return[-1]];
+
+    n = Apply[Times, m];
+    For[i = 1, i <= Length[m], i++,
+        k = n/m[[i]];
+        ans = ans + (b[[i]]/a[[i]])*(k)*fractionMod[k^(-1), m[[i]]];
+    ];
+    Return[Mod[ans, n]];
+]
+
+(* use *)
+a = {1, 1}
+b = {2, 6}
+m = {7, 11}
+FindSolModEqSystem[a, b, m]

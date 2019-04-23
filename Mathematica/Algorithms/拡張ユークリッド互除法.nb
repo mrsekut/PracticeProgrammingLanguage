@@ -1,3 +1,17 @@
+(*拡張ユークリッドの互除法*)
+(* 未完成? *)
+ExGCD[m_, n_] := Module[{i, q, li, x, y},
+    {x, y} = If[m >= n, {m, n}, {n, m}];
+    li = {{x, 1, 0}, {y, 0, 1}};
+    i = 2;
+    While[li[[i, 1]] != 0 ,
+        q = Quotient[li[[i - 1, 1]], li[[i, 1]]];
+        Join[li, li[[i - 1]] - q*li[[i]]];
+        i++;
+        Print[li[[i - 1]]];
+    ]
+]
+
 (* 拡張ユークリッドの互除法 行列版 *)
 (* ref: http://ashiato45.hatenablog.jp/entry/2018/11/04/172848 *)
 
