@@ -1,0 +1,21 @@
+(* 分数に対するmod演算 *)
+fractionMod[a_, n_] := Module[{r},
+    r = Mod[Numerator[a]*PowerMod[Denominator[a], -1, n], n];
+    Return[r];
+];
+
+(* 「暗号理論と楕円曲線」p.44 例題2.12(1)を解くプログラム *)
+LCFp[p_, c_, v_] := Module[{i, r, ans = 0},
+    For[i = 1, i <= Length[c], i++,
+        If[IntegerQ[c[[i]]],
+            r = Mod[c[[i]], p],
+            r = fractionMod[c[[i]], p]
+        ];
+        ans = ans + r*v[[i]];
+    ];
+    Return[Map[Mod[#, p] &, ans]];
+];
+
+(* use *)
+LCFp[5, {2, 4/3}, {{0, 3, 4}, {1, 1, 2}}]
+{3, 4, 4}
