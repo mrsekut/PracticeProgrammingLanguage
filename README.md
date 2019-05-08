@@ -5,15 +5,18 @@
 - C
 - Go
 - Haskell
+- Io
 - Java
 - JavaScript
 - Kotlin
+- Mathematica
 - Nim
 - OCaml
 - Ptyhon
 - PHP
 - Ruby
 - Rust
+- ShellScript
 - Swift
 - TypeScript
 
