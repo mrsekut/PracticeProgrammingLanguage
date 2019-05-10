@@ -8,6 +8,7 @@
 - Io
 - Java
 - JavaScript
+- Julia
 - Kotlin
 - Mathematica
 - Nim
@@ -28,7 +29,6 @@
 - F#
 - Haxe
 - Idris
-- Julia
 - PureScript
 - Q#
 - Reason
