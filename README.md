@@ -2,6 +2,7 @@
 
 ### Languages that I have done hello world
 
+- AssemblyScript
 - C
 - Go
 - Haskell

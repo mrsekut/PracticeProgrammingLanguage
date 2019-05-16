@@ -1,6 +1,9 @@
 # 全般
 prac.*
 
+# AssemblyScript
+AssemblyScript/**/node_modules/
+
 # Rust
 Rust/**/target/
 
@@ -10,7 +13,6 @@ Nim/**/nimcache/
 # TypeScript
 TypeScript/**/node_modules/
 TypeScript/**/build/
-
 
 # JavsScript
 JavaScript/**/node_modules/
