@@ -100,13 +100,13 @@ caseOfFristLetter (x:xs)
 -- 上の関数の書き直し
 caseOfFristLetter :: String -> String
 caseOfFristLetter str =
-        case str of
-            ""     -> ""
-            (x:xs) -> if 'a' <= x && x <= 'z'
-                        then "lower"
-                        else if 'A' <= x && x <= 'Z'
-                                then "upper"
-                                else "other"
+    case str of
+        ""     -> ""
+        (x:xs) -> if 'a' <= x && x <= 'z'
+            then "lower"
+            else if 'A' <= x && x <= 'Z'
+                then "upper"
+                else "other"
 
 -- caseとガードを組み合わせた例
 -- 上の関数の書き直し
