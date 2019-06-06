@@ -1,0 +1,1 @@
+{"version":3,"sources":["assembly/index.ts"],"names":[],"mappings":"4EAGa,AAAJ,EAAI","sourceRoot":"assemblyscript:///","sourceContents":["// The entry file of your WebAssembly module.\n\nexport function add(a: i32, b: i32): i32 {\n  return a + b;\n}\n"]}

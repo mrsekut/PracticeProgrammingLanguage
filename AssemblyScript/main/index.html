@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Simple AssemblyScript Sample</title>
+    <script>
+      fetch('./build/optimized.wasm')
+        .then(res => res.arrayBuffer())
+        .then(bytes => WebAssembly.compile(bytes)) // `.wasm`を機械語にコンパイル
+        .then(module => WebAssembly.instantiate(module)) // moduleのインスタンス化
+        .then(instance => {
+          alert(instance.exports.fib(44));
+        });
+    </script>
+  </head>
+
+  <body>
+    <p>
+      Hello, AssemblyScript!!
+    </p>
+  </body>
+</html>
