@@ -1,27 +1,50 @@
-// // The entry file of your WebAssembly module.
+// export class Vec_3 {
+//   constructor(public x: f64 = 0.0, public y: f64 = 0.0, public z: f64 = 0.0) {}
 
-// export function add(a: i32, b: i32): i32 {
-//   return a + b;
-// }
-
-// export function fib(n: i32): i32 {
-//   let a = 0,
-//     b = 1;
-//   for (let i = 0; i < n; i++) {
-//     let t = a + b;
-//     a = b;
-//     b = t;
+//   @inline
+//   @operator('+')
+//   protected add_vector(value: Vec_3): Vec_3 {
+//     return new Vec_3(this.x + value.x, this.y + value.y, this.z + value.z);
 //   }
-//   return b;
+
+//   public get length(): f64 {
+//     return Math.sqrt(this.x * this.x + this.y * this.y + this.z + this.z);
+//   }
 // }
 
-// // class A {
-// //   constructor(public prop: string) {}
-// // }
+export class Vec {
+  mX: i32;
+  mY: i32;
+  constructor(x: i32 = 0, y: i32 = 0) {
+    this.mX = x;
+    this.mY = y;
+  }
+  add(b: Vec): Vec {
+    return new Vec(this.mX + b.mX, this.mY + b.mY);
+  }
+  getX(): i32 {
+    return this.mX;
+  }
+  getY(): i32 {
+    return this.mY;
+  }
 
-// // export const a = new A('hello world');
+  get x(): i32 {
+    return this.mX;
+  }
+  get y(): i32 {
+    return this.mY;
+  }
+  set x(value: i32) {
+    this.mX = value;
+  }
+  set y(value: i32) {
+    this.mY = value;
+  }
+}
 
-// double number
-class Var {
-  constructor(private _x: i32, _dx: i32) {}
+export function init(): i32 {
+  const zero = new Vec(1, 0);
+  const one = new Vec(2, 3);
+  return zero.add(one).x;
 }
