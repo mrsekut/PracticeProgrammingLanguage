@@ -19,6 +19,11 @@ export class Vec {
     this.mX = x;
     this.mY = y;
   }
+
+  init(x: i32 = 0, y: i32 = 0): Vec {
+    return new Vec(x, y);
+  }
+
   add(b: Vec): Vec {
     return new Vec(this.mX + b.mX, this.mY + b.mY);
   }
@@ -41,10 +46,7 @@ export class Vec {
   set y(value: i32) {
     this.mY = value;
   }
-}
-
-export function init(): i32 {
-  const zero = new Vec(1, 0);
-  const one = new Vec(2, 3);
-  return zero.add(one).x;
+  r(): i32 {
+    return 42;
+  }
 }

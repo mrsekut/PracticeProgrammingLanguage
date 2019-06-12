@@ -1,42 +1,18 @@
 <html>
   <head>
     <title>Simple AssemblyScript Sample</title>
-    <!-- <script>
-      fetch('./build/untouched.wasm')
-        .then(res => res.arrayBuffer())
-        .then(bytes => WebAssembly.compile(bytes)) // `.wasm`を機械語にコンパイル
-        .then(module => WebAssembly.instantiate(module)) // moduleのインスタンス化
-        .then(instance => {
-          console.log(instance.exports);
-          // console.log(instance.exports.init());
-          const zero = instance.exports['Vec#constructor'](1, 0);
-          // const one = instance.exports['Vec#constructor'](8, 2, 3);
-          // const result = instance.exports['Vec#add'](zero, one);
-
-          // console.log(instance.exports.init());
-          console.log(result);
-        })
-        .catch(err => {
-          console.log(err.stack);
-        });
-    </script> -->
     <script>
-      const memory = new WebAssembly.Memory({ initial: 50 });
-      const abort = (msg, file, line, column) => {
-        throw Error('assertion failed'); // usually
-      };
-      WebAssembly.instantiateStreaming(fetch('/build/untouched.wasm'), {
-        //   env: { memory, abort },
-        //   JSMath: Math,
-        //   console: {
-        //     debug(value) {
-        //       console.log(value);
-        //     }
-        //   }
-      }).then(module => {
-        //   const exports = module.instance.exports;
-        //   console.log(exports);
-      });
+      // WebAssembly側のメモリ
+      let mem;
+
+      WebAssembly.instantiateStreaming(fetch('build/untouched.wasm'), {}).then(
+        mod => {
+          var exports = mod.instance.exports;
+          mem = new DataView(exports.memory.buffer);
+          exports['Vec#init'](3, 4);
+          console.log(exports);
+        }
+      );
     </script>
   </head>
 
