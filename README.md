@@ -4,6 +4,7 @@
 
 - AssemblyScript
 - C
+- Elixir
 - Go
 - Haskell
 - Io
@@ -14,8 +15,8 @@
 - Mathematica
 - Nim
 - OCaml
-- Ptyhon
 - PHP
+- Ptyhon
 - Ruby
 - Rust
 - ShellScript
@@ -25,7 +26,6 @@
 ### Languages I want to try someday...
 
 - Crystal
-- Elixir
 - Elm
 - F#
 - Haxe
