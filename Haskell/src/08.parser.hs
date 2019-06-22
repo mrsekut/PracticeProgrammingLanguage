@@ -1,35 +1,38 @@
--- ref: https://qiita.com/7shi/items/b8c741e78a96ea2c10fe
-
 import           Text.Parsec
 import           Control.Applicative            ( (<$>)
-                                                , (<*>)
                                                 , (*>)
+                                                , (<*)
+                                                , pure
                                                 )
+import           Text.Parsec.String
+import           Data.Char                      ( digitToInt )
 
-eval m fs = foldl (\x f -> f x) <$> m <*> fs
-apply f m = flip f <$> m
+data Expr = Add Expr Expr | Mul Expr Expr | Nat Int deriving Show
+
+-- expr ::= term ('+' expr | term)
+expr :: Parser Expr
+expr = do
+    t <- term
+    (Add t <$> (char '+' *> expr)) <|> pure t
 
 
-expr =
-    eval term $ many $ char '+' *> apply (+) term <|> char '-' *> apply (-) term
+-- term ::= factor ('*' term | factor)
+term :: Parser Expr
+term = do
+    f <- factor
+    (Mul f <$> (char '*' *> term)) <|> pure f
 
-term =
-    eval number
-        $   many
-        $   char '*'
-        *>  apply (*) number
-        <|> char '/'
-        *>  apply div number
 
-number = read <$> many1 digit
+-- factor ::= '(' expr ')' | nat
+factor :: Parser Expr
+factor = (char '(' *> expr <* char ')') <|> nat
 
-main = do
-    parseTest number "123"
-    parseTest expr   "1+2"
-    parseTest expr   "123"
-    parseTest expr   "1+2+3"
-    parseTest expr   "1-2-3"
-    parseTest expr   "1-2+3"
-    parseTest expr   "2*3+4"
-    parseTest expr   "2+3*4"
-    parseTest expr   "100/10/2"
+
+-- nat ::= '0' | '1' | '2' | ...
+nat :: Parser Expr
+nat = Nat . digitToInt <$> oneOf ['0' .. '9']
+
+
+
+-- parseTest expr "1+2"
+-- > Add (Nat 1) (Nat 2)
