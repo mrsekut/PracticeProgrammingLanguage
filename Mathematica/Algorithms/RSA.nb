@@ -1,4 +1,5 @@
-RSAKey[a_, b_] := Module[{p, q, n, e, d, k, i, pqTimes},
+(* おそらく間違っている *)
+RSAKey[a_, b_] := Module[{p, q, n, e, d=0, k, i, pqTimes},
 	p = NextPrime[a];
 	q = NextPrime[b];
 	pqTimes = (p - 1)*(q - 1);
@@ -8,11 +9,20 @@ RSAKey[a_, b_] := Module[{p, q, n, e, d, k, i, pqTimes},
 		e = RandomInteger[100000];
 	];
 
-	k = ExGCD[pqTimes, e][1];
-	d = 0;
+	k = ExtendedGCD[pqTimes, e][1];
 	While[k != 1,
-		k = ExGCD[pqTimes, e*d][[1]];
+		k = ExtendedGCD[pqTimes, e*d][[1]];
 		d++
 	];
 	Print[d];
+]
+
+(* 暗号化 *)
+RSAenc[n_, e_, x_] := Module[{},
+	Return[Mod[x^e, n]]
+]
+
+(* 複合 *)
+RSAdec[n_, d_, y_] := Module[{},
+	Return[Mod[y^d, N]]
 ]
