@@ -1,0 +1,101 @@
+(* 楕円曲線 Y^2 = X^3 + aX + b 上の点P1, P2の和算を求める *)
+ECQadd[a_, b_, P1_, P2_] := Module[{x3, y3, x1, y1, x2, y2, lm, mu},
+  If[Length[P1] == 1, Return[P2]];
+  If[Length[P2] == 1, Return[P1]];
+  {x1, y1} = P1; {x2, y2} = P2;
+  If[x1 == x2,
+    If[y1 == -y2, Return[{O}],
+      lm = (3*x1^2 + a)/(2*y1);
+      mu = (-x1^3 + a*x1 + 2*b)/(2*y1);
+      x3 = lm^2 - x1 - x2; y3 = -lm*x3 - mu
+    ],
+    lm = (y2 - y1)/(x2 - x1); mu = (y1*x2 - y2*x1)/(x2 - x1);
+    x3 = lm^2 - x1 - x2; y3 = -lm*x3 - mu
+  ];
+  Return[{x3, y3}]
+]
+
+(* ex.
+ECQadd[0, 17, {-2, 3}, {-2, 3}] (* {8, -23} *)
+*)
+
+(* 楕円曲線 Y^2 = X^3 + aX + b 上の点P1, P2の積算を求める *)
+ECQMult[a_, b_, m_, P_] := Module[{Ps, i},
+  Ps = {O};
+  For[i = 0, i < m, i++,
+    Ps = ECQadd[a, b, Ps, P];
+  ];
+  Return[Ps];
+]
+
+
+
+
+
+BinExpansionECQMul[a_, b_, m_, P_] := Module[{m2, l, i, sum = {O}, n1, p},
+  m2 = IntegerDigits[m, 2];
+  l = Length[m2];
+  p = ECQMult[a, b, 2, P];(* 2Pを求める *)
+  If[m2[[l]] == 1,
+    sum = ECQadd[a, b, sum, P];
+  ];
+  If[l > 1,
+    If[m2[[l - 1]] == 1,
+      sum = ECQadd[a, b, sum, p];
+    ];
+
+    For[i = 2, i < l, i++,
+      p = ECQMult[a, b, 2, p];
+      If[m2[[l - i]] == 1,
+      sum = ECQadd[a, b, sum, p];
+      ]
+    ];
+  ];
+  Return[sum];
+]
+
+BinExpansionECQMul[0, 9, 4, {6, 15}]
+(* {-(740784/429025), -(551537139/281011375)} *)
+
+ECAdd[a_, b_, P1_, P2_, p_] := Module[{},
+  << FiniteFields`;
+  Return[GF[p][{ECQadd[a, b, P1, P2]}]];
+  ]
+
+ECAdd[0, 17, {-2, 3}, {-2, 3}, 3]
+
+Subscript[{{8, -23}}, 3]
+
+ECMul[a_, b_, n_, P_, p_] := Module[{},
+  << FiniteFields`;
+  Return[GF[p][{ECQMult[a, b, n, P]}]];
+]
+
+
+ECMul[1, 1, 2, {2, 2}, 5]
+(* (2,3) *)
+
+Subscript[{{105/16, -(1301/64)}}, 5]
+
+(* 60. 1..6 *)
+
+CountEoverFp[a_, b_, p_]
+
+
+(* a,bを整数, p≠2,3を素数として, E(a,b):y2=x3+ax+b の 𝔽p 有理点の個数を数える関数  *)
+CountEoverFp[cf_, p_] := Module[{a1, a2, a3, a4, a6, x, RHS, H=1},
+  {a1, a3, a2, a4, a6} = Table[0, 5];
+  If[Length[cf] == 2,
+    {a4, a6} = cf,
+    {a1, a2, a3, a4, a6} = cf
+  ];
+  For[x = 0, x <= p, x++,
+    RHS = x^3 + a2*x^2 + a4*x + a6;
+    H = H + JacobiSymbol[RHS, p] + 1;
+  ];
+  Return[H];
+]
+(* ex.
+  CountEoverFp[{2, 3}, 29] (* 36 *)
+ *)
+
