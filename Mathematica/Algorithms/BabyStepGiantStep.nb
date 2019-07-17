@@ -1,0 +1,107 @@
+CountECoverFp[a_, b_, p_] :=
+    1 + Sum[JacobiSymbol[k^3 + a*k + b, p] + 1, {k, 0, p - 1}]
+
+ModInv[a_, p_] := Mod[ExtendedGCD[a, p][[2]][[1]], p]
+
+ECAdd[a_, b_, P1_, P2_, p_] := Module[{x1, y1, x2, y2, m, x3, y3},
+    If[Mod[4*a^3 + 27*b^2, p] == 0, Print["E(a,b) is not elliptic"]];
+        If[! PrimeQ[p], Print["Warning: no prime given"]];
+        If[P1 == {0}, Return[P2]];
+        If[P2 == {0}, Return[P1]];
+        x1 = P1[[1]];
+        y1 = P1[[2]];
+        x2 = P2[[1]];
+        y2 = P2[[2]];
+        If[Mod[x1 - x2, p] == 0 && Mod[y1 + y2, p] == 0, Return[{0}]];
+        If[Mod[x1 - x2, p] == 0 && Mod[y1 - y2, p] != 0,
+            Print["ECAdd:Error1"];
+            Return[{-1}]
+        ];
+        If[x1 == x2, m = Mod[(3*x1^2 + a)*ModInv[2*y1, p], p];
+        x3 = Mod[m*m - 2*x1, p];
+        y3 = Mod[m*(x1 - x3) - y1, p];
+        Return[{x3, y3}]];
+        m = Mod[(y2 - y1)*ModInv[x2 - x1, p], p];
+        x3 = Mod[m^2 - (x1 + x2), p];
+        y3 = Mod[m*(x1 - x3) - y1, p];
+        If[Mod[y3^2 - (x3^3 + a*x3 + b), p] != 0,
+            Print["ECAdd:Error2"];
+            Return[{-1}]
+        ];
+        Return[{x3, y3}
+    ]
+]
+
+ECInv[P_, p_] := {P[[1]], Mod[-P[[2]], p]};
+
+ECMul[a_, b_, n_, P_, p_] := Module[{Ret = {0}, P1 = P, n1 = n},
+    If[n1 == 0, Return[{0}]];
+    If[n1 < 0, Return[ECMul[a, b, -n1, ECInv[P, p], p]]];
+    While[n1 > 0,
+        If[n1 - Floor[n1/2]*2 == 1, Ret = ECAdd[a, b, Ret, P1, p]];
+        n1 = Floor[n1/2]; P1 = ECAdd[a, b, P1, P1, p]
+    ];
+    Return[Ret]
+]
+
+ModSqrt[t_, p_] := Module[{i},
+    For[i = 0, i < p, i++,
+        If[Mod[i^2 - t, p] == 0,
+            Return[i]
+        ]
+    ];
+    Return[-1]
+]
+
+
+BSGS[a_, b_, p_] := Module[{P, x, y, Ef, T = {}, i, j, j1, Pt, Q, Q1, RQ1, R, t, flg, flg1, m, m1},
+    Ef[x_] := Mod[x^3 + a*x + b, p];
+    flg = 0;
+    (* baby step *)
+    For[x = 0, x < p, x++,
+        If[JacobiSymbol[Ef[x], p] == 1, P = {x, ModSqrt[Ef[x], p]};
+            s = Ceiling[p^(1/4)];
+            T = {};
+            Pt = P;
+            For[i = -s, i <= s, i++,
+                T = Append[T, ECMul[a, b, i, P, p]]
+            ];
+            (* giant step *)
+            Q = ECMul[a, b, 2 s + 1, P, p];
+            R = ECMul[a, b, p + 1, P, p];
+            t = Floor[2*Sqrt[p]/(2 s + 1)];
+            flg1 = 0;
+            For[i = -t, i <= t, i++,
+                Q1 = ECMul[a, b, i, Q, p];
+                RQ1 = ECAdd[a, b, Q1, R, p];
+                For[j = -s, j <= s, j++,
+                    If[T[[j + s + 1]] == RQ1, j1 = j; flg1 = 1; Break[]]
+                ];
+                If[flg1 == 1, Break[]]
+            ];
+            m = p + 1 + (2 s + 1)*i - j1;
+            If[ECMul[a, b, m, P, p] != {0}, Print["Error1"]];
+            If[m < p + 1 - 2*Sqrt[p] || m > p + 1 + 2*Sqrt[p],
+                Print["Error2"]
+            ];
+            For[m1 = Floor[p + 1 - 2*Sqrt[p]] + 1, m1 < p + 1 + 2*Sqrt[p],
+                m1++,
+                If[ECMul[a, b, m1, P, p], flg = 1; Break[]]
+            ];
+            If[flg == 0, Return[m]]
+        ]
+        (* End of For loop of x-coordinate *)
+    ];
+    (* ここまでに Return しているはず *)
+    Print["Fatal Error!"]
+]
+
+
+(* ex. *)
+BSGS[3, 5, Prime[1000]]
+(* > 8008 *)
+
+a1 = 4451685225093714772084598273548424
+b1 = 2061118396808653202902996166388514
+p1 = (2^128 - 3)/(11*6949)
+BSGS[a1, b1, p1]
