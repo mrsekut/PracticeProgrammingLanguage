@@ -4,6 +4,7 @@
 
 - AssemblyScript
 - C
+- Elm
 - Elixir
 - Go
 - Haskell
@@ -26,7 +27,6 @@
 ### Languages I want to try someday...
 
 - Crystal
-- Elm
 - F#
 - Haxe
 - Idris
