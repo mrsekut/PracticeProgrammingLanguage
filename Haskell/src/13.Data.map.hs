@@ -8,7 +8,7 @@ main = do
     print $ Map.lookup "hoge" env   -- 値がある時
 
     -- insert :: Ord k => k -> a -> Map.Map k a -> Map.Map k a
-    let env2 = Map.insert "foo" "500" env   -- envに新しくkey-valueを追加したもんをおenv2に束縛
+    let env2 = Map.insert "foo" "500" env   -- envに新しくkey-valueを追加したものをenv2に束縛
     print env2
     print $ Map.lookup "foo" env2
 
