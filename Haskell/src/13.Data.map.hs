@@ -15,3 +15,10 @@ main = do
     -- delete :: Ord k => k -> Map.Map k a -> Map.Map k a
     let env3 = Map.delete "hoge" env        -- "hoge"を削除したものをenv3に束縛
     print $ Map.lookup "hoge" env3          --値がない時
+
+    let env4 = Map.map (++ "1") env
+    print env4
+    print $ Map.map (++ "1") env
+
+    let env5 = Map.mapKeys (++ "1") env
+    print env5
