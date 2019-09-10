@@ -10,12 +10,12 @@ main = Browser.sandbox {init=init, update=update, view=view}
 -- Model =======
 
 type alias Model =
-    { input: String
+    { input: Maybe String
     , todos: List String
     }
 
 init : Model
-init = Model "" []
+init = Model Nothing []
 
 
 -- Msg =======
@@ -25,8 +25,10 @@ type Msg = Input String | Add | Delete Int
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        Input todo -> { model | input = todo }
-        Add -> { model | input = "", todos = model.todos ++ [model.input] }
+        Input todo -> { model | input = Just todo }
+        Add -> case model.input of
+            Nothing -> { model | input = Nothing }
+            Just i -> { model | input = Nothing, todos = model.todos ++ [i] }
         Delete n -> { model | todos = removeFromList n model.todos }
 
 removeFromList i xs = (List.take i xs) ++ (List.drop (i+1) xs)
@@ -37,8 +39,10 @@ removeFromList i xs = (List.take i xs) ++ (List.drop (i+1) xs)
 view : Model -> Html Msg
 view model =
     div []
-        [ input [type_ "text", placeholder "todo", value model.input, onInput Input] []
-        , button [onClick Add] [text "add"]
+        [ input [type_ "text", placeholder "todo", value <| Maybe.withDefault "" model.input, onInput Input] []
+        , button
+            [disabled (model.input == Nothing), onClick Add]
+            [text "add"]
         , div [] [renderList model.todos]
         ]
 
