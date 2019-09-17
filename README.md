@@ -20,6 +20,7 @@
 - Ptyhon
 - Ruby
 - Rust
+- Scheme
 - ShellScript
 - Swift
 - TypeScript
