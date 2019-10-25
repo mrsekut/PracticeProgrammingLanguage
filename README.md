@@ -20,6 +20,7 @@
 - Ptyhon
 - Ruby
 - Rust
+- Scala
 - Scheme
 - ShellScript
 - Swift
@@ -34,4 +35,3 @@
 - PureScript
 - Q#
 - Reason
-- Scala
