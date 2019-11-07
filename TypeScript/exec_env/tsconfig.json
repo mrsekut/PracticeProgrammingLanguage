@@ -8,6 +8,7 @@
     "outDir": "build",
     "rootDir": "src",
     "baseUrl": ".",
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "strict": true
   }
 }
