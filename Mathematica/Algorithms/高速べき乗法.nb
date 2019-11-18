@@ -8,6 +8,6 @@ FPower[a_, m_, n_] := Module[{ans, arr, i},
         If[arr[[i]] == 1,
             ans = Mod[ans*a, n];
         ]
-    ]
-    Print[ans];
+    ];
+    Return[ans];
 ]
