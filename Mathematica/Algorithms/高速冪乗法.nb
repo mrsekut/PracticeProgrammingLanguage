@@ -1,0 +1,14 @@
+(* 高速べき乗法*)
+FPower[a_, n_, m_] := Module[{y = 1, arr = Bin[n], i},
+    For[i = Length[arr] - 1, i >= 0, i--,
+        y = Mod[y^2, m];
+        If[Part[arr, Length[arr] - i] == 1, y = Mod[y*a, m]];
+    ];
+    Return[y];
+]
+
+(* 帰納的に書いた版 *)
+power[a_, 0] := 1
+power[a_, n_ /; EvenQ[n]] := power[a*a, (Quotient[n, 2])]
+power[a_, n_ /; OddQ[n]] := a*power[a, (n - 1)]
+FPower2[a_, n_, m_] := Mod[power[a, n], m]
