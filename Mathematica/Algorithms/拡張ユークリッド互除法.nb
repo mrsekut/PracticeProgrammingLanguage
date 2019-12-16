@@ -1,29 +1,46 @@
-(*拡張ユークリッドの互除法*)
-(* 未完成? *)
-ExGCD[m_, n_] := Module[{i, q, li, x, y},
-    {x, y} = If[m >= n, {m, n}, {n, m}];
-    li = {{x, 1, 0}, {y, 0, 1}};
-    i = 2;
-    While[li[[i, 1]] != 0 ,
-        q = Quotient[li[[i - 1, 1]], li[[i, 1]]];
-        Join[li, li[[i - 1]] - q*li[[i]]];
+(*
+拡張ユークリッドの互除法
+m,nの最大公約数dとd=am+bnを満たすa,bの3つ組{d,a,b}を返す
+答えはExtendedGCD *)
+
+(* 普通に手続き的に書いたもの *)
+ExGCD[m_, n_] := Module[{i = 2, l, q, lit, ai},
+    l = {{m, 1, 0}, {n, 0, 1}};
+    ai[i_] := l[[i, 1]];  (* 添字アクセスが見づらいのでa_iを表すものを用意 *)
+
+    While[ai[i] != 0,
+        q = Quotient[ai[i - 1], ai[i]];
+        l = Join[l, {l[[i - 1]] - q*l[[i]]}];
         i++;
-        Print[li[[i - 1]]];
-    ]
-]
-
-(* 拡張ユークリッドの互除法 行列版 *)
-(* ref: http://ashiato45.hatenablog.jp/entry/2018/11/04/172848 *)
-
-myExGCD2[a_, b_] := Module[{r, q, mx},
-    {q, a2} = QuotientRemainder[a, b];
-    mx = {{q, 1}, {1, 0}};
-    a1 = b;
-    While[a2 != 0,
-        a0 = a1;
-        a1 = a2;
-        {q, a2} = QuotientRemainder[a0, a1];
-        mx = mx.{{q, 1}, {1, 0}};
     ];
-    Return[{Inverse[mx].{a, b}}[[1, 1]]];
+    Return[l[[i - 1]]];
 ]
+
+
+(* 行列版を意識して書いたもの. 一時変数の使い方のキモさが否めない *)
+ExGCDMatrix[m_, n_] := Module[{mx, r, q, r0, r1, r2, a, b, d},
+    {q, r2} = QuotientRemainder[m, n];
+    mx = {{0, 1}, {1, -q}};
+    r1 = n;
+    While[r2 != 0,
+        r0 = r1;
+        r1 = r2;
+        {q, r2} = QuotientRemainder[r0, r1];
+        mx = {{0, 1}, {1, -q}}.mx;
+    ];
+
+    {a, b} = mx[[1]];
+    d = (mx.{m, n})[[1]];
+
+    Return[{a, b, d}]
+]
+
+
+(* Haskell実装のサイトを参考にして再帰的に実装したもの. an,bnはa_nextのつもり *)
+Rec[a_, b_, _, _, m_, 0] := {a, b, m};
+Rec[a_, b_, an_, bn_, m_, n_] := Module[{r, q},
+    {q, r} = QuotientRemainder[m, n];
+    Return[Rec[an, bn, (a - q*an), (b - q*bn), n, r]];
+]
+
+ExGDCRec[m_, n_] := Rec[1, 0, 0, 1, m, n]
