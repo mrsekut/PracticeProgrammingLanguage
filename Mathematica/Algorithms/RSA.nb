@@ -1,28 +1,26 @@
-(* おそらく間違っている *)
-RSAKey[a_, b_] := Module[{p, q, n, e, d=0, k, i, pqTimes},
-	p = NextPrime[a];
-	q = NextPrime[b];
-	pqTimes = (p - 1)*(q - 1);
-	n = p*q;
-	e = RandomInteger[10000];
-	While[! CoprimeQ[pqTimes, e],
-		e = RandomInteger[100000];
+(* ランダムにeを作成する *)
+MakeE[p_, q_] := Module[{e},
+	e = RandomInteger[(p - 1)*(q - 1)];
+	If[CoprimeQ[(p - 1) (q - 1), e],
+		Return[e],
+		Return[MakeE[p, q]]
 	];
-
-	k = ExtendedGCD[pqTimes, e][1];
-	While[k != 1,
-		k = ExtendedGCD[pqTimes, e*d][[1]];
-		d++
-	];
-	Print[d];
 ]
+
+
+
+(* RSA暗号の鍵生成をする *)
+RSAKey[a_, b_] := Module[{p = NextPrime[a], q = NextPrime[b], n, e, d},
+	n = p*q;
+	e = MakeE[p, q];
+	d = ExGCD[e, (p - 1) (q - 1)][[2]];
+	While[d <= 0, d += (p - 1) (q - 1)];
+	Return[{n, e, d}];
+]
+
 
 (* 暗号化 *)
-RSAenc[n_, e_, x_] := Module[{},
-	Return[Mod[x^e, n]]
-]
+RSAEnc[m_, n_, e_] := FPower[m, e, n]
 
 (* 複合 *)
-RSAdec[n_, d_, y_] := Module[{},
-	Return[Mod[y^d, N]]
-]
+RSADec[c_, n_, d_] := FPower[c, d, n]
