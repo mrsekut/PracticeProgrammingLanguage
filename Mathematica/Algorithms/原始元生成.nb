@@ -1,0 +1,13 @@
+(* gがpの原始元かどうかを判定 *)
+IsGen[g_, p_] := Module[{primeFactors, surplus},
+    primeFactors = ((p - 1)/#[[1]]) & /@ FactorInteger[p - 1]; (* p-1の素因子のリスト *)
+    surplus = Mod[g^#, p] & /@ primeFactors;(* gの素因子乗をpで割ったものの余り *)
+    Return[Length[Select[surplus, # != 1 &]] == Length[primeFactors]];
+]
+
+
+(* 原始元生成 *)
+FindGen[p_] := Module[{g},
+    g = RandomInteger[{2, p - 2}];
+    If[IsGen[g, p], Return[g], Return[FindGen[p]]];
+]

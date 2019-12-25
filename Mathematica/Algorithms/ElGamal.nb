@@ -1,0 +1,35 @@
+(* ElGamal暗号の鍵生成 *)
+EGKey[a_] := Module[{p, g, x, y},
+    p = NextPrime[a];
+    g = FindGen[p];
+    x = RandomInteger[{2, p - 2}];
+    y = FPower[g, x, p] ;
+    Return[{p, g, y, x}];
+];
+
+
+(*
+ElGamal暗号の暗号化
+引数: 平文m,公開鍵p,g,y, 返り値: 暗号文c1,c2
+*)
+EGEnc[m_, p_, g_, y_] := Module[{c1, c2, r},
+    r = RandomInteger[p - 1];
+    c1 = FPower[g, r, p] ;
+    c2 = Mod[m*FPower[y, r, p], p ];
+    Return[{c1, c2}];
+];
+
+
+(*
+ElGamal暗号の複合
+引数: 暗号文c1,c2, 公開鍵p, 秘密鍵x
+*)
+EGDec[c1_, c2_, p_, x_] := Mod[c2*FPower[c1, p - 1 - x, p], p];
+
+
+(* ElGamal暗号を試す *)
+a = 1024;
+{p, g, y, x} = EGKey[a]
+m = 32;
+{c1, c2} = EGEnc[m, p, g, y]
+EGDec[c1, c2, p, x]
