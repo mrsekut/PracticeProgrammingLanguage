@@ -2,13 +2,9 @@
 
 - ここで書いて試して、必要なら他の場所に移して保存する
 
-## compile
+## run
 
-`$ npm run tsc`
-
-## run in the background
-
-`$ node build/index.js`
+`$ ts-node-dev src/index.ts`
 
 ## npm update
 
