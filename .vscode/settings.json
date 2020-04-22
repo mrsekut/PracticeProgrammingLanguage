@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.jsx": "typescriptreact",
+        "stdio.h": "c"
+    },
+    "FSharp.suggestSdkScripts": false
+}

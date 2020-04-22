@@ -22,3 +22,6 @@ TypeScript/**/build/
 
 # JavsScript
 JavaScript/**/node_modules/
+
+.fake
+.ionide
