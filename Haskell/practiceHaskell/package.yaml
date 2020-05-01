@@ -1,9 +1,9 @@
 name: practiceHaskell
 version: 0.1.0.0
-github: 'githubuser/practiceHaskell'
+github: "githubuser/practiceHaskell"
 license: BSD3
-author: 'mrsekut'
-copyright: '2019 mrsekut'
+author: "mrsekut"
+copyright: "2019 mrsekut"
 
 extra-source-files:
   - README.md
@@ -24,6 +24,8 @@ dependencies:
   - mtl
   - containers
   - parsec
+  - QuickCheck
+  - lens
 
 library:
   source-dirs: src

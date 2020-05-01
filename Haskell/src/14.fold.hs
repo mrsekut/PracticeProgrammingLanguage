@@ -18,7 +18,8 @@ main = do
     print $ mapR (+ 1) a
 
 
--- 関数プログラミングの楽しみの書き方
+-- | 関数プログラミングの楽しみの書き方
+--   List型を新しく定義する
 data List a = Nil | Cons a (List a)
 
 wrap :: a -> List a
@@ -31,6 +32,10 @@ nil (Cons x xs) = False
 foldL :: (a -> b -> b) -> b -> List a -> b
 foldL f e Nil         = e
 foldL f e (Cons x xs) = f x (foldL f e xs)
+
+
+unfoldr' :: (b -> Bool) -> (b -> a) -> (b -> b) -> b -> [a]
+unfoldr' p f g b = if p b then [] else [f b (unfoldr p f g (g b))]
 
 
 main = do
